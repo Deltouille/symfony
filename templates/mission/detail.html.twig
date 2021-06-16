@@ -36,12 +36,14 @@
                 Code de la planque : {{ planque.code }} <br/> 
                 Adresse : {{ planque.adresse }}, {{ planque.CP }}, {{ planque.ville }} <br/>
                 Type de planque : {{ planque.type }}
-        {% else %} Aucune planque {% endfor %}</td></tr>
-        
+            {% else %} Aucune planque {% endfor %}</td></tr>
+        <tr><td>Cibles de la mission : </td><td>{% for cible in detailMission.Cible %} 
+                Identité : {{ cible.nom }} {{ cible.prenom }}<br/>
+                Nationnalité : {{ cible.nationnalite.nomNatio }}<br/>
+                Nom de Code : {{ cible.nomCode }}<br/>
+                Née le : {{ cible.DateNaissance|date('Y-m-d') }}<br/><br/>
+            {% else %} Aucune Cible {% endfor %}</td></tr>
     </table>
-    
 </div>
-
-
 </html>
 {% endblock %}

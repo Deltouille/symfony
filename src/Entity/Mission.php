@@ -74,11 +74,17 @@ class Mission
      */
     private $dateFin;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cible::class, mappedBy="mission")
+     */
+    private $Cible;
+
     public function __construct()
     {
         $this->Agent = new ArrayCollection();
         $this->contact = new ArrayCollection();
         $this->Planque = new ArrayCollection();
+        $this->Cible = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -250,6 +256,36 @@ class Mission
     public function setDateFin(string $dateFin): self
     {
         $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cible[]
+     */
+    public function getCible(): Collection
+    {
+        return $this->Cible;
+    }
+
+    public function addCible(Cible $cible): self
+    {
+        if (!$this->Cible->contains($cible)) {
+            $this->Cible[] = $cible;
+            $cible->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCible(Cible $cible): self
+    {
+        if ($this->Cible->removeElement($cible)) {
+            // set the owning side to null (unless already changed)
+            if ($cible->getMission() === $this) {
+                $cible->setMission(null);
+            }
+        }
 
         return $this;
     }
