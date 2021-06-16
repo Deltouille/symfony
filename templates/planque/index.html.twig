@@ -1,0 +1,82 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+    </div>
+    <h1>Listes des Missions</h1>
+
+    <hr />
+    {# Tableau des différentes planque #}
+    <table id="planque" class="table table-striped table-bordered" style="width:100%">
+    {# En-tête des champs pour les différentes planque #}
+        <thead>
+            <tr>
+                <th style="border-top:0px solid black; padding-left: 9px;">Code</th>
+                <th style="border-top:0px solid black; padding-left: 9px;">Adresse</th>
+                <th style="border-top:0px solid black; padding-left: 9px;">Ville</th>
+                <th style="border-top:0px solid black; padding-left: 9px;">Code Postal</th>
+                <th style="border-top:0px solid black; padding-left: 9px;">Pays</th>
+                <th style="border-top:0px solid black; padding-left: 9px;">Type</th>
+            </tr>
+        </thead>
+        {# On parcours l'array envoyer par le controller pour remplir le tableau #}
+        <tbody>
+            {% for planque in listePlanque %}
+            <tr>
+                <td>{{ planque.code }}</td>
+                <td>{{ planque.adresse }}</td>
+                <td>{{ planque.ville }}</td>
+                <td>{{ planque.CP }}</td>
+                <td>{{ planque.pays }}</td>
+                <td>{{ planque.type }}</td>
+
+
+                {#<td>
+                    <a href="#">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Details de la classification
+                    </a>
+                </td>#}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# bouton permettant d'ajouter une classification #}
+    {#<div>
+        <a href="{{ path('blprppe_symfony_ajoutclassification') }}" class ="btn btn-success">
+            <i class ="glyphicon glyphicon-chevron-left"></i>
+            Ajout d'une classification
+        </a>
+    </div>#}
+
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/autofill/2.3.4/css/autoFill.dataTables.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
+
+<script src="{{ asset ('js/DataTables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset ('js/DataTables/buttons.print.min.js') }}"></script>
+<script src="{{ asset ('js/DataTables/buttons.flash.min.js') }}"></script>
+<script src="{{ asset ('js/DataTables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset ('js/DataTables/dataTables.autoFill.min.js') }}"></script>
+<script src="{{ asset ('js/DataTables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset ('js/dataTables.bootstrap4.min.js') }}"></script>
+
+<script>
+    $('#classifications').DataTable();
+</script>
+
+</html>
+{% endblock %}

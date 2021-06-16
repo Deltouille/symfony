@@ -1,0 +1,57 @@
+body {
+	background-image: linear-gradient(rgba(0, 181, 204, 0.6), rgba(0, 181, 204, 0.6)),
+	                  url('../Images/medical.jpg');
+	background-size: cover;
+}
+
+.wrapper {
+	margin: 11%;
+}
+
+.form-signin {
+	max-width: 380px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 15px 40px 50px;
+	border: 1px solid #e5e5e5;
+	border-radius: 10px;
+}
+
+.img-circular {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-200%,-60%);
+	margin-bottom: -30%;
+	background-color: white;
+	box-shadow: 7px 4px 10px #aaa;
+}
+
+.img-circular .logo {
+	background-image: url('../Images/Logo_Gsb.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin-top: 7px;
+	height: 70px;
+	width: 85px;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-40%);
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 30px;
+}
+
+.form-signin input[type="email"], .form-signin input[type="password"] {
+	margin-bottom: 20px;
+}
+
+.form-signin .form-control {
+	padding: 10px;
+}
+
