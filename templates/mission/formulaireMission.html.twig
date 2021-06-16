@@ -1,0 +1,164 @@
+<div>
+<div class="pull-right">
+</div>
+<h1>Formulaire d'une mission</h1>
+<hr />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function() {
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+    <div class="well">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        
+        {# Les erreurs générales du formulaire #}
+        {{ form_errors(form) }}
+
+        {# Génération manuelle du formulaire #}
+        {# Titre de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.titre, "Titre de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.titre) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# description de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.description, "Description de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.description) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# nom de code de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.nomCode, "Nom de code de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.nomCode) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.nomCode, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Pays de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.pays, "Pays de code de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.pays) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Statut de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.Statut, "Statut de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.Statut) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.Statut, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Spécialité de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.specialite, "Spécialité de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.specialite) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.specialite, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Date de début de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.dateDebut, "Date de fin de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.dateDebut) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Date de fin de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.dateFin, "Date de fin de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.dateFin) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Agents de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.Agent, "Agents de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.Agent) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.Agent, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Contacts de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.contact, "Contacts de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.contact) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.contact, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Planque de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.Planque, "Planque de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.Planque) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.Planque, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Cibles de la mission #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.Cible, "Planque de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.Cible) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.Cible, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Génération automatique des champs pas encore écrits #}
+        {{ form_rest(form) }}
+        {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+        {{ form_widget(form.Sauvegarde, {'attr': {'class': 'btn btn-primary'}}) }}
+        {# Fermeture de la balise <form> de formulaire HTML #}
+        {{ form_end(form) }}
+    </div>
+
+
+
+</html>
