@@ -62,7 +62,7 @@ class MissionType extends AbstractType
             ->add('Planque', EntityType::class,
             array('class' => Planque::class,
                   'choice_label' => 'code',
-                  'multiple' => false,
+                  'multiple' => true,
                   'expanded' => false,
                 
             ))

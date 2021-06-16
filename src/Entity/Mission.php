@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,6 +57,7 @@ class Mission
 
     /**
      * @ORM\ManyToMany(targetEntity=Planque::class, inversedBy="missions")
+     * @Assert\Count(min = 1, max = 1)
      */
     private $Planque;
 
