@@ -41,6 +41,7 @@ class Contact
 
     /**
      * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="contact")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $missions;
 

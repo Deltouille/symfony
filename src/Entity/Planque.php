@@ -51,6 +51,7 @@ class Planque
 
     /**
      * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="Planque")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $missions;
 

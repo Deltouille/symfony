@@ -42,11 +42,13 @@ class Mission
 
     /**
      * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="missions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $Agent;
 
     /**
      * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="missions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $contact;
 
@@ -57,6 +59,7 @@ class Mission
 
     /**
      * @ORM\ManyToMany(targetEntity=Planque::class, inversedBy="missions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @Assert\Count(min = 1, max = 1)
      */
     private $Planque;
@@ -78,6 +81,7 @@ class Mission
 
     /**
      * @ORM\OneToMany(targetEntity=Cible::class, mappedBy="mission")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $Cible;
 

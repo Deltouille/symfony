@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\MissionType;
 use App\Entity\Mission;
+use App\Entity\Agent;
+use App\Entity\Cible;
+use App\Entity\Planque;
+use App\Entity\Contact;
+
 
 class MissionController extends AbstractController
 {
@@ -85,7 +90,64 @@ class MissionController extends AbstractController
     /**
      * @Route("/mission-suppression/{id}", name="mission-suppression")
      */
-    public function suppression(int $id): Reponse
+    public function suppression(int $id, Request $request): Response
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+        $missionRepository = $em->getRepository(Mission::class);
+        $suppressionMission = $missionRepository->find($id);
+       
+
+        //On vérifie que la mission existe
+        if($suppressionMission === null){
+            //Erreur 404
+            throw new NotFoundHttpException("La mission d'id ".$id." n'existe pas");
+        }
+
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression d'application
+        $form = $this->createForm(MissionType::class, $suppressionMission);
+
+        // Si la requête est en POST
+        if ($request->isMethod('POST')) {
+            // On fait le lien Requête <-> Formulaire
+            // Donc à partir de maintenant,
+            // la variable $Medicament contient les valeurs modifiées entrées dans le formulaire par le visiteur
+            $form->handleRequest($request);
+            // On vérifie que les valeurs entrées sont correctes
+            if ($form->isSubmitted() && $form->isValid()) {
+                //On supprime les agents dans la relation
+                foreach($suppressionMission->getAgent() as $agent){
+                    $suppressionMission->removeAgent($agent);
+                }
+                //On supprime les agents dans la relation
+                foreach($suppressionMission->getCible() as $cible){
+                    $suppressionMission->removeCible($cible);
+                }
+                //On supprime les agents dans la relation
+                foreach($suppressionMission->getPlanque() as $planque){
+                    $suppressionMission->removePlanque($planque);
+                }
+                //On supprime les contacts dans la relation
+                foreach($suppressionMission->getContact() as $contact){
+                    $suppressionMission->removeContact($contact);
+                }
+                $em->remove($suppressionMission);
+                // On envoie les données dans la base de données
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Medicament bien supprimé.');
+
+                return $this->redirectToRoute("mission");
+            }
+        }
+        return $this->render("mission/suppression.html.twig", array('suppressionMission' => $suppressionMission, 'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("mission-ajout", name="mission-ajout")
+     */
+    public function ajout(): Response
     {
 
     }

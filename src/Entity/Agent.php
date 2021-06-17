@@ -41,6 +41,7 @@ class Agent
 
     /**
      * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="Agent")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $missions;
 

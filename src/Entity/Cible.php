@@ -44,6 +44,7 @@ class Cible
 
     /**
      * @ORM\ManyToOne(targetEntity=Mission::class, inversedBy="Cible")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $mission;
 
