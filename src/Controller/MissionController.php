@@ -147,9 +147,23 @@ class MissionController extends AbstractController
     /**
      * @Route("mission-ajout", name="mission-ajout")
      */
-    public function ajout(): Response
+    public function ajout(Request $request): Response
     {
+        $mission = new Mission();
+        $form = $this->createForm(MissionType::class, $mission);
 
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($mission);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('notice', 'Medicament bien enregistrée.');
+                return $this->redirectToRoute("mission");
+            }
+        }
+        return $this->render("mission/ajout.html.twig", array('mission' => $mission, 'form' => $form->createView()));
     }
 }
 

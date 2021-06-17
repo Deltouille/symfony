@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,7 +26,7 @@ class MissionType extends AbstractType
             ->add('titre', TextType::class)
             ->add('description', TextType::class)
             ->add('nomCode', TextType::class)
-            ->add('pays', TextType::class)
+            ->add('pays', CountryType::class)
             ->add('Statut', ChoiceType::class, [
                 'choices' => [
                     'En préparation' => 'En préparation',
