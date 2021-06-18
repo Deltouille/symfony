@@ -14,23 +14,14 @@
     <h1>Détails de la mission : {{ detailMission.titre }}</h1>
     <hr />
     <table id="table" class="table mt-3 table-hover table-borderless row-border">
-        {# dosage du médicament #}
         <tr><td>Description de la mission : </td><td>{{ detailMission.description }}</td></tr>
-        {# le type du médicament avec son libelle et sa quantité #}
         <tr><td>Nom de code de la mission : </td><td>{{ detailMission.nomCode }}</td></tr>
-        {# la liste des substance du médicament #}
         <tr><td>Pays de la mission : </td><td>{{ CountryName(detailMission.pays) }}</td></tr>
-        {# la liste des excipients du médicament #}
         <tr><td>Spécialité de la mission : </td><td>{{ detailMission.specialite }}</td></tr>
-        {# la liste des excipients du médicament #}
         <tr><td>Statut de la mission : </td><td>{{ detailMission.statut }}</td></tr>
-        {# la liste des excipients du médicament #}
         <tr><td>Date de début de la mission : </td><td>{{ detailMission.dateDebut|date('Y-m-d') }}</td></tr>
-        {# la liste des excipients du médicament #}
         <tr><td>Date de fin de la mission : </td><td>{{ detailMission.dateFin|date('Y-m-d') }}</td></tr>
-        {# la liste des clasifications du médicament #}
         <tr><td>Agents sur la mission : </td><td>{% for agent in detailMission.agent %} - {{ agent.nom }} {{ agent.prenom }}<br/>{% else %} Aucun agent {% endfor %}</td></tr>
-        {# la liste des effets secondaires du médicament #}
         <tr><td>Contacts sur la mission : </td><td>{% for contact in detailMission.contact %} - {{ contact.nom }} {{ contact.prenom }}<br/>{% else %} Aucun contact {% endfor %}</td></tr>
         <tr><td>Planques disponible : </td><td>{% for planque in detailMission.planque %} 
                 Code de la planque : {{ planque.code }} <br/> 

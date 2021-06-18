@@ -136,7 +136,7 @@ class MissionController extends AbstractController
                 // On envoie les données dans la base de données
                 $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Medicament bien supprimé.');
+                $request->getSession()->getFlashBag()->add('notice', 'Mission bien supprimé.');
 
                 return $this->redirectToRoute("mission");
             }
@@ -159,7 +159,7 @@ class MissionController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($mission);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'Medicament bien enregistrée.');
+                $request->getSession()->getFlashBag()->add('notice', 'Mission bien enregistrée.');
                 return $this->redirectToRoute("mission");
             }
         }

@@ -1,0 +1,23 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+    </div>
+    <h1>Détails de la nationnalité : {{ detailsNationnalite.nomNatio }}</h1>
+    <hr />
+    <table id="table" class="table mt-3 table-hover table-borderless row-border">
+        <tr><td>Agents ayant la nationnalité : </td><td>{% for agent in detailsNationnalite.agents %} - {{ agent.nom }} {{ agent.prenom }}<br/>{% else %} Aucun agent {% endfor %}</td></tr>
+        <tr><td>Contacts ayant la nationnalité : </td><td>{% for contact in detailsNationnalite.contacts %} - {{ contact.nom }} {{ contact.prenom }}<br/>{% else %} Aucun contact {% endfor %}</td></tr>
+        <tr><td>Cibles ayant la nationnalité : </td><td>{% for cible in detailsNationnalite.cibles %} - {{ cible.nom }} {{ cible.prenom }}<br/>{% else %} Aucun contact {% endfor %}</td></tr>
+    </table>
+</div>
+</html>
+{% endblock %}

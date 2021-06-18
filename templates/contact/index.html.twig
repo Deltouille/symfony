@@ -19,41 +19,26 @@
     {# En-tête des champs pour les différents contacts #}
         <thead>
             <tr>
-                <th style="border-top:0px solid black; padding-left: 9px;">Nom</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Prénom</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Code d'identification</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Date de Naissance</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Nationnalité</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Prénom</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Code d'identification</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Date de Naissance</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nationnalité</th>
             </tr>
         </thead>
         {# On parcours l'array envoyer par le controller pour remplir le tableau #}
         <tbody>
             {% for contact in listeContact %}
             <tr>
-                <td>{{ contact.nom }}</td>
-                <td>{{ contact.prenom }}</td>
-                <td>{{ contact.nomCode }}</td>
-                <td>{{ contact.DateNaissance|date('Y-m-d') }}</td>
-                <td>{{ contact.nationnalite.nomNatio }}</td>
-                {#<td>
-                    <a href="#">
-                        <i class ="glyphicon glyphicon-chevron-left"></i>
-                        Details de la classification
-                    </a>
-                </td>#}
+                <td style="text-align: center;">{{ contact.nom }}</td>
+                <td style="text-align: center;">{{ contact.prenom }}</td>
+                <td style="text-align: center;">{{ contact.nomCode }}</td>
+                <td style="text-align: center;">{{ contact.DateNaissance|date('Y-m-d') }}</td>
+                <td style="text-align: center;">{{ contact.nationnalite.nomNatio }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    {# bouton permettant d'ajouter une classification #}
-    {#<div>
-        <a href="{{ path('blprppe_symfony_ajoutclassification') }}" class ="btn btn-success">
-            <i class ="glyphicon glyphicon-chevron-left"></i>
-            Ajout d'une classification
-        </a>
-    </div>#}
-
 </div>
 
 

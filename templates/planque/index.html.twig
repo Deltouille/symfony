@@ -19,45 +19,28 @@
     {# En-tête des champs pour les différentes planque #}
         <thead>
             <tr>
-                <th style="border-top:0px solid black; padding-left: 9px;">Code</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Adresse</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Ville</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Code Postal</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Pays</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Type</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Code</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Adresse</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Ville</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Code Postal</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Pays</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Type</th>
             </tr>
         </thead>
         {# On parcours l'array envoyer par le controller pour remplir le tableau #}
         <tbody>
             {% for planque in listePlanque %}
             <tr>
-                <td>{{ planque.code }}</td>
-                <td>{{ planque.adresse }}</td>
-                <td>{{ planque.ville }}</td>
-                <td>{{ planque.CP }}</td>
-                <td>{{ planque.pays }}</td>
-                <td>{{ planque.type }}</td>
-
-
-                {#<td>
-                    <a href="#">
-                        <i class ="glyphicon glyphicon-chevron-left"></i>
-                        Details de la classification
-                    </a>
-                </td>#}
+                <td style="text-align: center;">{{ planque.code }}</td>
+                <td style="text-align: center;">{{ planque.adresse }}</td>
+                <td style="text-align: center;">{{ planque.ville }}</td>
+                <td style="text-align: center;">{{ planque.CP }}</td>
+                <td style="text-align: center;">{{ planque.pays }}</td>
+                <td style="text-align: center;">{{ planque.type }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    {# bouton permettant d'ajouter une classification #}
-    {#<div>
-        <a href="{{ path('blprppe_symfony_ajoutclassification') }}" class ="btn btn-success">
-            <i class ="glyphicon glyphicon-chevron-left"></i>
-            Ajout d'une classification
-        </a>
-    </div>#}
-
 </div>
 
 

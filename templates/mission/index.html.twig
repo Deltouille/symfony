@@ -19,62 +19,50 @@
         </i>
     </a>
     </h1>
-
-    
     <hr />
     {# Tableau des différentes missions #}
     <table id="missions" class="table table-striped table-bordered" style="width:100%; margin-left:auto;margin-right:auto;">
     {# En-tête des champs pour les différentes classifications #}
         <thead>
             <tr>
-                <th style="border-top:0px solid black; padding-left: 9px;">Titre</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Description</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Nom de code</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Pays</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Statut</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Spécialité</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Date de Début</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Date de Fin</th>
-                <th style="border-top:0px solid black; padding-left: 9px;">Action</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Titre</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Description</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom de code</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Pays</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Statut</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Spécialité</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Date de Début</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Date de Fin</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
             </tr>
         </thead>
         {# On parcours l'array envoyer par le controller pour remplir le tableau #}
         <tbody>
             {% for mission in listeMissions %}
             <tr>
-                <td>{{ mission.titre }}</td>
-                <td>{{ mission.description }}</td>
-                <td>{{ mission.nomCode }}</td>
-                <td>{{ CountryName(mission.pays) }}</td>
-                <td>{{ mission.statut }}</td>
-                <td>{{ mission.specialite }}</td>
-                <td>{{ mission.dateDebut|date('Y-m-d') }}</td>
-                <td>{{ mission.dateFin|date('Y-m-d') }}</td>
-                <td>
-                    <a href="{{ path('mission-details', {id: mission.id}) }}">
+                <td style="text-align: center;">{{ mission.titre }}</td>
+                <td style="text-align: center;">{{ mission.description }}</td>
+                <td style="text-align: center;">{{ mission.nomCode }}</td>
+                <td style="text-align: center;">{{ CountryName(mission.pays) }}</td>
+                <td style="text-align: center;">{{ mission.statut }}</td>
+                <td style="text-align: center;">{{ mission.specialite }}</td>
+                <td style="text-align: center;">{{ mission.dateDebut|date('Y-m-d') }}</td>
+                <td style="text-align: center;">{{ mission.dateFin|date('Y-m-d') }}</td>
+                <td style="text-align: center;">
+                    <a href="{{ path('mission-details', {id: mission.id}) }}" style="text-align: center;">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Details de la mission
                     </a><p>
 
-                    <a href="{{ path('mission-suppression', {id: mission.id}) }}">
+                    <a href="{{ path('mission-suppression', {id: mission.id}) }}" style="text-align: center;">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Supprimer la mission
                     </a>
                 </td>
-
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    {# bouton permettant d'ajouter une classification #}
-    {#<div>
-        <a href="{{ path('blprppe_symfony_ajoutclassification') }}" class ="btn btn-success">
-            <i class ="glyphicon glyphicon-chevron-left"></i>
-            Ajout d'une classification
-        </a>
-    </div>#}
-
 </div>
 
 

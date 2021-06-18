@@ -11,30 +11,40 @@
 <div>
     <div class="pull-right">
     </div>
-    <h1>Listes des Contacts</h1>
+    <h1>Listes des Nationnalitées
+        <a href ="{{ path('nationnalite-ajout')}}" class ="btn btn-sm btn-success" style="float: right;">
+        <i class ="glyphicon glyphicon-edit" >
+        Ajouter une Nationnalité
+        </i>
+        </a>
+    </h1>
 
     <hr />
-    {# Tableau des différents cibles #}
-    <table id="cible" class="table table-striped table-bordered" style="width:100%">
-    {# En-tête des champs pour les différents cible #}
+    {# Tableau des différentes nationnalitées #}
+    <table id="nationnalite" class="table table-striped table-bordered" style="width:100%">
+    {# En-tête des champs pour les différentes nationnalitées #}
         <thead>
             <tr>
-                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nom</th>
-                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Prénom</th>
-                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Code d'identification</th>
-                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Date de Naissance</th>
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nationnalité</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
             </tr>
         </thead>
         {# On parcours l'array envoyer par le controller pour remplir le tableau #}
         <tbody>
-            {% for cible in listeCible %}
+            {% for natio in listeNatio %}
             <tr>
-                <td style="text-align: center;">{{ cible.nom }}</td>
-                <td style="text-align: center;">{{ cible.prenom }}</td>
-                <td style="text-align: center;">{{ cible.nomCode }}</td>
-                <td style="text-align: center;">{{ cible.DateNaissance|date('Y-m-d') }}</td>
-                <td style="text-align: center;">{{ cible.nationnalite.nomNatio }}</td>
+                <td style="text-align: center;">{{ natio.nomNatio }}</td>
+                <td style="text-align: center;">
+                    <a href="{{ path('nationnalite-suppression', {id: natio.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Supprimer la nationnalité
+                    </a>
+                    <p>
+                    <a href="{{ path('nationnalite-detail', {id: natio.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Détails la nationnalité
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
