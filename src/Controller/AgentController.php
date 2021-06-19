@@ -31,16 +31,45 @@ class AgentController extends AbstractController
     public function ajout(Request $request): Response
     {
         $agent = new Agent();
-        $form = $thhis->createForm(AgentType::class, $agent);
+        $form = $this->createForm(AgentType::class, $agent);
         if($request->isMethod('POST')){
             $form->handleRequest($request);
             if($form->isValid()){
-                $em = $this->getDoctrine()-getManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($agent);
                 $em->flush();
                 return $this->redirectToRoute('agent-ajout');
             }
         }
-        return $this->render('agent/ajout.html.twig');
+        return $this->render('agent/ajout.html.twig', ['agent' => $agent, 'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/agent-suppression/{id}", name="agent-suppression")
+     */
+    public function suppression(int $id, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $agentRepository = $em->getRepository(Agent::class);
+        $suppressionAgent = $agentRepository->find($id);
+        //On supprime les agents dans la relation
+        foreach($suppressionAgent->getMissions() as $mission){
+            $suppressionAgent->removeMission($mission);
+        }
+        $em->remove($suppressionAgent);
+        $em->flush();
+        return $this->redirectToRoute('agent');
+    }
+
+    /**
+     * @Route("/agent-details/{id}", name="agent-details")
+     */
+    public function detail(int $id): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $agentRepository = $em->getRepository(Agent::class);
+        $detailAgent = $agentRepository->find($id);
+
+        return $this->render('agent/detail.html.twig', ['detailAgent' => $detailAgent]);
     }
 }

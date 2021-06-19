@@ -19,6 +19,7 @@ use App\Entity\Cible;
 use App\Entity\Planque;
 use App\Entity\Contact;
 use App\Entity\Mission;
+use App\Entity\Nationnalite;
 class AgentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -34,11 +35,12 @@ class AgentType extends AbstractType
                   'multiple' => true,
                   'expanded' => false))
             ->add('Nationnalite', EntityType::class, array(
-                  'choice_label' => 'nomNation',
-                  'multiple' => true,
+                  'class' => Nationnalite::class,
+                  'choice_label' => 'nomNatio',
+                  'multiple' => false,
                   'expanded' => false
                   ))
-            ->add('Sauvegarder', SubmitType::class)
+            ->add('Sauvegarde', SubmitType::class)
         ;
     }
 

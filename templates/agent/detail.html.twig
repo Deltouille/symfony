@@ -1,0 +1,24 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+    </div>
+    <h1>Détails de l'agent : {{ detailAgent.nom }} {{ detailAgent.prenom }}</h1>
+    <hr />
+    <table id="table" class="table mt-3 table-hover table-borderless row-border">
+        <tr><td>Code d'identification : </td><td>{{ detailAgent.codeIdentification }}</td>
+        <tr><td>Date de naissance : </td><td>{{ detailAgent.DateNaissance|date("Y-m-d") }}</td>
+        <tr><td>Nationnalité : </td><td>{{ detailAgent.Nationnalite.nomNatio }}</td>
+        <tr><td>Missions de l'agent : </td><td>{% for mission in detailAgent.missions %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
+    </table>
+</div>
+</html>
+{% endblock %}

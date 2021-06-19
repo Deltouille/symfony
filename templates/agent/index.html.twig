@@ -11,7 +11,13 @@
 <div>
     <div class="pull-right">
     </div>
-    <h1>Listes des Agents</h1>
+    <h1>Listes des Agents
+        <a href ="{{ path('agent-ajout')}}" class ="btn btn-sm btn-success" style="float: right;">
+            <i class ="glyphicon glyphicon-edit" >
+            Ajouter un Agent
+            </i>
+        </a>
+    </h1>
 
     <hr />
     {# Tableau des différents agents #}
@@ -24,6 +30,7 @@
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Code d'identification</th>
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Date de Naissance</th>
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nationnalité</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
             </tr>
         </thead>
         {# On parcours l'array envoyer par le controller pour remplir le tableau #}
@@ -35,6 +42,17 @@
                 <td style="text-align: center;">{{ agent.codeIdentification }}</td>
                 <td style="text-align: center;">{{ agent.DateNaissance|date('Y-m-d') }}</td>
                 <td style="text-align: center;">{{ agent.Nationnalite.nomNatio }}</td>
+                <td style="text-align: center;">
+                    <a href="{{ path('agent-suppression', {id: agent.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Supprimer l'agent
+                    </a>
+                    <p>
+                    <a href="{{ path('agent-details', {id: agent.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Details de l'agent
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
