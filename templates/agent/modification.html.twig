@@ -1,0 +1,30 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+        </div>
+        <h1>Modification de l'agent : {{ modificationAgent.nom }} {{ modificationAgent.prenom }}</h1>
+        <hr />
+        {{ include('agent/formulaireAgent.html.twig')}}
+        <p>
+        <a href="{{ path('agent-details', {'id': modificationAgent.id}) }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left">
+        Retour au détail de l'agent : {{ modificationAgent.nom}} {{ modificationAgent.prenom }}
+        </i></a>
+        </p>
+    </div>
+</html>
+
+{% block JS %}
+    {{ parent() }}
+{% endblock %}
+
+{% endblock %}

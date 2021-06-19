@@ -20,5 +20,10 @@
         <tr><td>Missions de l'agent : </td><td>{% for mission in detailAgent.missions %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
     </table>
 </div>
+        <a href ="{{ path('agent-modification', {id: detailAgent.id}) }}" class ="btn btn-sm btn-success" style="float: left;">
+            <i class ="glyphicon glyphicon-edit" >
+            Modifier cet Agent
+            </i>
+        </a>
 </html>
 {% endblock %}

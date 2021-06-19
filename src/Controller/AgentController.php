@@ -72,4 +72,30 @@ class AgentController extends AbstractController
 
         return $this->render('agent/detail.html.twig', ['detailAgent' => $detailAgent]);
     }
+
+    /**
+     * @Route("/agent-modification/{id}", name="agent-modification")
+     */
+    public function modifier(int $id, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $agentRepository = $em->getRepository(Agent::class);
+        $modificationAgent = $agentRepository->find($id);
+
+        if($modificationAgent === null){
+            throw new NotFoundHttpException("L'agent d'id ".$id." n'existe pas");
+        }
+        $form = $this->createForm(AgentType::class, $modificationAgent);
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $em->persist($modificationAgent);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('notice', 'Agent bien modifiée');
+                return $this->redirectToRoute('agent-details', ['id' => $modificationAgent->getId()]);
+            }
+        }
+        return $this->render('agent/modification.html.twig', array('form' => $form->createView(), 'modificationAgent' => $modificationAgent));
+    }
 }
