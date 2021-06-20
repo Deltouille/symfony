@@ -1,0 +1,25 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+    </div>
+    <h1>Détails de la cible : {{ detailCible.nom }} {{ detailCible.prenom }}</h1>
+    <hr />
+    <table id="table" class="table mt-3 table-hover table-borderless row-border">
+        <tr><td>Nom de code de la cible : </td><td>{{ detailCible.nomCode }}</td>
+        <tr><td>Date de naissance : </td><td>{{ detailCible.DateNaissance|date("Y-m-d") }}</td>
+        <tr><td>Nationnalité : </td><td>{{ detailCible.nationnalite.nomNatio }}</td>
+        <tr><td>Missions de la cible : </td><td>{% for mission in detailCible.mission %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
+    </table>
+</div>
+
+</html>
+{% endblock %}

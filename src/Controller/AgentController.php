@@ -34,11 +34,11 @@ class AgentController extends AbstractController
         $form = $this->createForm(AgentType::class, $agent);
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-            if($form->isValid()){
+            if($form->isValid() && $form->isSubmitted()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($agent);
                 $em->flush();
-                return $this->redirectToRoute('agent-ajout');
+                return $this->redirectToRoute('agent');
             }
         }
         return $this->render('agent/ajout.html.twig', ['agent' => $agent, 'form' => $form->createView()]);
