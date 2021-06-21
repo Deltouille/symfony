@@ -1,0 +1,97 @@
+<div>
+<div class="pull-right">
+</div>
+<h1>Formulaire d'une planque</h1>
+<hr />
+    <div class="well">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        
+        {# Les erreurs générales du formulaire #}
+        {{ form_errors(form) }}
+
+        {# Génération manuelle du formulaire #}
+        {# Code de la planque #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.code, "Code de la planque", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.code) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Adresse de la planque #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.adresse, "Adresse de la planque", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.adresse) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Code postal de la planque #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.CP, "Code postal de la planque", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.CP) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.CP, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Ville de la planque #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.ville, "Ville de la planque", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.ville) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Pays de la planque #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.pays, "Pays de la planque", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.pays) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Type de planque #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.type, "Type de planque ", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.type) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Mission ou se trouve la planque #}
+        <div class="form-group">
+            {# Génération du label #}
+            {{ form_label(form.missions, "Mission ou se trouve la planque ", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {# Affichage des erreurs pour ce champ précis #}
+            {{ form_errors(form.missions) }}
+            <div class="col-sm-10">
+                {# Génération de l'input. #}
+                {{ form_widget(form.missions, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {# Génération automatique des champs pas encore écrits #}
+        {{ form_rest(form) }}
+        {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+        {{ form_widget(form.Sauvegarde, {'attr': {'class': 'btn btn-primary'}}) }}
+        {# Fermeture de la balise <form> de formulaire HTML #}
+        {{ form_end(form) }}
+    </div>
+</html>

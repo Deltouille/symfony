@@ -1,0 +1,30 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+        </div>
+        <h1>Modification de la cible : {{ modificationCible.nom }} {{ modificationCible.prenom }}</h1>
+        <hr />
+        {{ include('cible/formulaireCible.html.twig')}}
+        <p>
+        <a href="{{ path('cible-details', {'id': modificationCible.id}) }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left">
+        Retour au détail de l'agent : {{ modificationCible.nom}} {{ modificationCible.prenom }}
+        </i></a>
+        </p>
+    </div>
+</html>
+
+{% block JS %}
+    {{ parent() }}
+{% endblock %}
+
+{% endblock %}

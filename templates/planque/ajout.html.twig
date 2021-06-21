@@ -1,0 +1,29 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+        </div>
+        <h1>Ajout d'une planque</h1>
+        <hr />
+        {{ include('planque/formulairePlanque.html.twig')}}
+        
+        <p>Vous allez ajouter une planque</p>
+        <a href="{{ path('planque') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left">Retour à la liste des planques</i>
+        </a>
+    </div>
+</html>
+
+{% block JS %}
+    {{ parent() }}
+{% endblock %}
+
+{% endblock %}

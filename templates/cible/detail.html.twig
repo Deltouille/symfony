@@ -17,9 +17,20 @@
         <tr><td>Nom de code de la cible : </td><td>{{ detailCible.nomCode }}</td>
         <tr><td>Date de naissance : </td><td>{{ detailCible.DateNaissance|date("Y-m-d") }}</td>
         <tr><td>Nationnalité : </td><td>{{ detailCible.nationnalite.nomNatio }}</td>
-        <tr><td>Missions de la cible : </td><td>{% for mission in detailCible.mission %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
+        <tr><td>Missions de la cible : </td><td>
+        {% if detailCible.mission is null %}
+            Aucune mission
+        {% else %}
+            <a href=" {{ path("mission-details", {id: detailMission.id}) }} ">{{ detailMission.titre }}
+        </td>
+        {% endif %}
     </table>
 </div>
+        <a href ="{{ path('cible-modification', {id: detailCible.id}) }}" class ="btn btn-sm btn-success" style="float: left;">
+            <i class ="glyphicon glyphicon-edit" >
+            Modifier cette cible
+            </i>
+        </a>
 
 </html>
 {% endblock %}

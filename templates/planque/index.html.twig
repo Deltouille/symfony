@@ -11,7 +11,13 @@
 <div>
     <div class="pull-right">
     </div>
-    <h1>Listes des Missions</h1>
+    <h1>Listes des Missions
+        <a href ="{{ path('planque-ajout')}}" class ="btn btn-sm btn-success" style="float: right;">
+            <i class ="glyphicon glyphicon-edit" >
+            Ajouter une Planque
+            </i>
+        </a>
+    </h1>
 
     <hr />
     {# Tableau des différentes planque #}
@@ -25,6 +31,7 @@
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Code Postal</th>
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Pays</th>
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Type</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
             </tr>
         </thead>
         {# On parcours l'array envoyer par le controller pour remplir le tableau #}
@@ -37,6 +44,17 @@
                 <td style="text-align: center;">{{ planque.CP }}</td>
                 <td style="text-align: center;">{{ planque.pays }}</td>
                 <td style="text-align: center;">{{ planque.type }}</td>
+                <td style="text-align: center;">
+                    <a href="{{ path('planque-suppression', {id: planque.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Supprimer la planque
+                    </a>
+                    <p>
+                    <a href="{{ path('planque-details', {id: planque.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Details de la planque
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
