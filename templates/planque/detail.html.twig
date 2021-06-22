@@ -22,7 +22,7 @@
         <tr><td>Missions de la Planque : </td><td>{% for mission in detailPlanque.missions %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
     </table>
 </div>
-        <a href ="#" class ="btn btn-sm btn-success" style="float: left;">
+        <a href ="{{ path('agent-modification', {id: detailPlanque.id}) }}" class ="btn btn-sm btn-success" style="float: left;">
             <i class ="glyphicon glyphicon-edit" >
             Modifier cet Agent
             </i>

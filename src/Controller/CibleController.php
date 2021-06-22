@@ -35,7 +35,7 @@ class CibleController extends AbstractController
         $form = $this->createForm(CibleType::class, $cible);
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-            if($form->isValid() && $form->isSubmitted()){
+            if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($cible);
                 $em->flush();
@@ -93,7 +93,7 @@ class CibleController extends AbstractController
         $form = $this->createForm(CibleType::class, $modificationCible);
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-            if($form->isValid() && $form->isSubmitted()){
+            if($form->isSubmitted() && $form->isValid()){
                 $em->persist($modificationCible);
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('notice', 'Agent bien modifiée');

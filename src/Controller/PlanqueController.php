@@ -60,7 +60,7 @@ class PlanqueController extends AbstractController
         $form = $this->createForm(PlanqueType::class, $planque);
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-            if($form->isValid() && $form->isSubmitted()){
+            if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($planque);
                 $em->flush();
@@ -68,5 +68,27 @@ class PlanqueController extends AbstractController
             }
         }
         return $this->render('planque/ajout.html.twig', ['planque' => $planque, 'form' => $form->createView()]);
+    }
+
+    public function modifier(int $id, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $planqueRepository = $em->getRepository(Planque::class);
+        $modificationPlanque = $planqueRepository->find($id);
+
+        if($modificationPlanque === null){
+            throw new NotFoundHttpException("La planque d'id ".$id." n'existe pas");
+        }
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $em->persist($modificationPlanque);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('notice', 'Agent bien modifiée');
+                return $this->redirectToRoute('planque-details', ['id' => $modificationPlanque->getId()]);
+            }
+        }
+        return $this->render('planque/modification.html.twig', array('form' => $form->createView(), 'modificationPlanque' => $modificationPlanque));
     }
 }

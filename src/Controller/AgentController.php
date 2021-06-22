@@ -34,7 +34,7 @@ class AgentController extends AbstractController
         $form = $this->createForm(AgentType::class, $agent);
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-            if($form->isValid() && $form->isSubmitted()){
+            if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($agent);
                 $em->flush();
