@@ -1,0 +1,29 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+    </div>
+    <h1>Détails du contact : {{ detailContact.nom }} {{ detailContact.prenom }}</h1>
+    <hr />
+    <table id="table" class="table mt-3 table-hover table-borderless row-border">
+        <tr><td>Code d'identification : </td><td>{{ detailContact.nomCode }}</td>
+        <tr><td>Date de naissance : </td><td>{{ detailContact.DateNaissance|date("Y-m-d") }}</td>
+        <tr><td>Nationnalité : </td><td>{{ detailContact.nationnalite.nomNatio }}</td>
+        <tr><td>Missions de l'agent : </td><td>{% for mission in detailContact.missions %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
+    </table>
+</div>
+        <a href ="{{ path('contact-modification', {id: detailContact.id}) }}" class ="btn btn-sm btn-success" style="float: left;">
+            <i class ="glyphicon glyphicon-edit" >
+            Modifier ce contact
+            </i>
+        </a>
+</html>
+{% endblock %}

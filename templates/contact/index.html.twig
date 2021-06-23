@@ -11,7 +11,13 @@
 <div>
     <div class="pull-right">
     </div>
-    <h1>Listes des Contacts</h1>
+    <h1>Listes des Contacts
+      <a href ="{{ path('contact-ajout') }}" class ="btn btn-sm btn-success" style="float: right;">
+            <i class ="glyphicon glyphicon-edit" >
+            Ajouter un Contact
+            </i>
+        </a>
+    </h1>
 
     <hr />
     {# Tableau des différents contacts #}
@@ -24,6 +30,7 @@
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Code d'identification</th>
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Date de Naissance</th>
                 <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Nationnalité</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
             </tr>
         </thead>
         {# On parcours l'array envoyer par le controller pour remplir le tableau #}
@@ -35,6 +42,17 @@
                 <td style="text-align: center;">{{ contact.nomCode }}</td>
                 <td style="text-align: center;">{{ contact.DateNaissance|date('Y-m-d') }}</td>
                 <td style="text-align: center;">{{ contact.nationnalite.nomNatio }}</td>
+                <td style="text-align: center;">
+                    <a href="{{ path('contact-suppression', {id: contact.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Supprimer le contact
+                    </a>
+                    <p>
+                    <a href="{{ path('contact-details', {id: contact.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Details du contact
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

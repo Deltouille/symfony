@@ -17,7 +17,7 @@
         <tr><td>Adresse de la planque : </td><td>{{ detailPlanque.adresse }}</td>
         <tr><td>Code postal de la planque : </td><td>{{ detailPlanque.CP }}</td>
         <tr><td>Ville de la planque : </td><td>{{ detailPlanque.CP }}</td>
-        <tr><td>Pays de la planque : </td><td>{{ detailPlanque.pays }}</td>
+        <tr><td>Pays de la planque : </td><td>{{ CountryName(detailPlanque.pays) }}</td>
         <tr><td>Type de la planque : </td><td>{{ detailPlanque.type }}</td>
         <tr><td>Missions de la Planque : </td><td>{% for mission in detailPlanque.missions %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
     </table>
