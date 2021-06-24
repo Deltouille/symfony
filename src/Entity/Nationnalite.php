@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\NationnaliteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,21 +22,25 @@ class Nationnalite
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nomNatio;
 
     /**
      * @ORM\OneToMany(targetEntity=Agent::class, mappedBy="Nationnalite")
+     * @Assert\NotBlank()
      */
     private $agents;
 
     /**
      * @ORM\OneToMany(targetEntity=Cible::class, mappedBy="nationnalite")
+     * @Assert\NotBlank()
      */
     private $cibles;
 
     /**
      * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="nationnalite")
+     * @Assert\NotBlank()
      */
     private $contacts;
 

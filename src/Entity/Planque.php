@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PlanqueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,37 +22,45 @@ class Planque
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=5)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2, max=5)
      */
     private $CP;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $pays;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="Planque")
      * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Assert\NotBlank()
      */
     private $missions;
 

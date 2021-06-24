@@ -19,5 +19,10 @@
         <tr><td>Cibles ayant la nationnalité : </td><td>{% for cible in detailsNationnalite.cibles %} - {{ cible.nom }} {{ cible.prenom }}<br/>{% else %} Aucun contact {% endfor %}</td></tr>
     </table>
 </div>
+    <a href ="{{ path('nationnalite-modification', {id: detailsNationnalite.id}) }}" class ="btn btn-sm btn-success" style="float: left;">
+            <i class ="glyphicon glyphicon-edit" >
+            Modifier cette cible
+            </i>
+        </a>
 </html>
 {% endblock %}

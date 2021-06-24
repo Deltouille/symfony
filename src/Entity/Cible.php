@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\CibleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,34 +22,46 @@ class Cible
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nom;
 
+
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank()
      */
     private $DateNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nomCode;
 
     /**
      * @ORM\ManyToOne(targetEntity=Nationnalite::class, inversedBy="cibles")
+     * @Assert\NotBlank()
      */
     private $nationnalite;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Mission::class, inversedBy="Cible")
+     * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="Cible")
      * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Assert\NotBlank()
      */
     private $mission;
+
+    public function __construct()
+    {
+        $this->mission = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +136,22 @@ class Cible
     public function setMission(?Mission $mission): self
     {
         $this->mission = $mission;
+
+        return $this;
+    }
+
+    public function addMission(Mission $mission): self
+    {
+        if (!$this->mission->contains($mission)) {
+            $this->mission[] = $mission;
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): self
+    {
+        $this->mission->removeElement($mission);
 
         return $this;
     }

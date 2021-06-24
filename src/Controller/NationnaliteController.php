@@ -73,4 +73,29 @@ class NationnaliteController extends AbstractController
         return $this->render('nationnalite/details.html.twig', ['detailsNationnalite' => $detailsNationnalite]);
 
     }
+
+    /**
+     * @Route("/nationnalite-modification/{id}", name="nationnalite-modification")
+     */
+    public function modification(int $id, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $nationnaliteRepository = $em->getRepository(Nationnalite::class);
+        $modificationNationnalite = $nationnaliteRepository->find($id);
+        $form = $this->createForm(NationnaliteType::class, $modificationNationnalite);
+        if($modificationNationnalite === null){
+            throw new NotFoundHttpException("La nationnalité d'id ".$id." n'existe pas");
+        }
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $em->persist($modificationNationnalite);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('notice', 'nationnalité bien modifiée');
+                return $this->redirectToRoute('nationnalite-details', ['id' => $modificationNationnalite->getId()]);
+            }
+        }
+        return $this->render('nationnalite/modification.html.twig', ['form' => $form->createView(), 'modificationNationnalite' => $modificationNationnalite]);
+    }
 }

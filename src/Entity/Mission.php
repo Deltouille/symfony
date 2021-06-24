@@ -22,38 +22,45 @@ class Mission
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nomCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $pays;
 
     /**
      * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="missions")
      * @ORM\JoinColumn(onDelete="CASCADE")
+     * @Assert\NotBlank()
      */
     private $Agent;
 
     /**
      * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="missions")
      * @ORM\JoinColumn(onDelete="CASCADE")
+     * @Assert\NotBlank()
      */
     private $contact;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $Statut;
 
@@ -61,27 +68,32 @@ class Mission
      * @ORM\ManyToMany(targetEntity=Planque::class, inversedBy="missions")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Assert\Count(min = 1, max = 1)
+     * @Assert\NotBlank()
      */
     private $Planque;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $specialite;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank()
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank()
      */
     private $dateFin;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cible::class, mappedBy="mission")
+     * @ORM\ManyToMany(targetEntity=Cible::class, inversedBy="mission")
      * @ORM\JoinColumn(onDelete="CASCADE")
+     * @Assert\NotBlank()
      */
     private $Cible;
 

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Contact;
 use App\Form\ContactType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ContactController extends AbstractController
 {
@@ -73,6 +74,7 @@ class ContactController extends AbstractController
         $suppressionContact = $contactRepository->find($id);
         $em->remove($suppressionContact);
         $em->flush();
+        //return new JsonResponse('route::'.$this->get('router')->generate('contact')); 
         return $this->redirectToRoute('contact');
     }
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AgentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,33 +22,39 @@ class Agent
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank()
      */
     private $DateNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $codeIdentification;
 
     /**
      * @ORM\ManyToMany(targetEntity=Mission::class, mappedBy="Agent")
      * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Assert\NotBlank()
      */
     private $missions;
 
     /**
      * @ORM\ManyToOne(targetEntity=Nationnalite::class, inversedBy="agents")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $Nationnalite;
 
