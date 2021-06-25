@@ -11,7 +11,7 @@
 <div>
     <div class="pull-right">
     </div>
-    <h1>Listes des Missions
+    <h1>Listes des Planques
         <a href ="{{ path('planque-ajout')}}" class ="btn btn-sm btn-success" style="float: right;">
             <i class ="glyphicon glyphicon-edit" >
             Ajouter une Planque
@@ -45,10 +45,10 @@
                 <td style="text-align: center;">{{ planque.pays }}</td>
                 <td style="text-align: center;">{{ planque.type }}</td>
                 <td style="text-align: center;">
-                    <a href="{{ path('planque-suppression', {id: planque.id}) }}" style="text-align: center;">
+                    <button class="suppression" href="{{ path('planque-suppression', {id: planque.id}) }}" style="text-align: center;" data-playground-id="{{ planque.id }}">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Supprimer la planque
-                    </a>
+                    </button>
                     <p>
                     <a href="{{ path('planque-details', {id: planque.id}) }}" style="text-align: center;">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
@@ -60,5 +60,26 @@
         </tbody>
     </table>
 </div>
+<script>
+    $(document).ready(function(){
+        $(".suppression").click(function(){
+            var id = $(this).attr("data-playground-id");
+            var url = '{{path('planque-suppression', { 'id': 0}) }}';
+            var url = url.replace("0",id);
+            $.ajax({
+                url: url,
+                type: 'delete',
+                success:function(data){
+                    console.log(data)
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+            $(this).closest("tr").hide();
+        });
+    });
+</script>
 </html>
 {% endblock %}

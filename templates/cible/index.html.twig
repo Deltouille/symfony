@@ -40,10 +40,10 @@
                 <td style="text-align: center;">{{ cible.DateNaissance|date('Y-m-d') }}</td>
                 <td style="text-align: center;">{{ cible.nationnalite.nomNatio }}</td>
                 <td style="text-align: center;">
-                    <a href="{{ path('cible-suppression', {id: cible.id}) }}" style="text-align: center;">
+                    <button class="suppression" href="{{ path('cible-suppression', {id: cible.id}) }}" style="text-align: center;" data-playground-id="{{ cible.id }}">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Supprimer la cible
-                    </a>
+                    </button>
                     <p>
                     <a href="{{ path('cible-details', {id: cible.id}) }}" style="text-align: center;">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
@@ -55,5 +55,26 @@
         </tbody>
     </table>
 </div>
+<script>
+    $(document).ready(function(){
+        $(".suppression").click(function(){
+            var id = $(this).attr("data-playground-id");
+            var url = '{{path('cible-suppression', { 'id': 0}) }}';
+            var url = url.replace("0",id);
+            $.ajax({
+                url: url,
+                type: 'delete',
+                success:function(data){
+                    console.log(data)
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+            $(this).closest("tr").hide();
+        });
+    });
+</script>
 </html>
 {% endblock %}

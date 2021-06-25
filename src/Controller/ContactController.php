@@ -74,7 +74,6 @@ class ContactController extends AbstractController
         $suppressionContact = $contactRepository->find($id);
         $em->remove($suppressionContact);
         $em->flush();
-        //return new JsonResponse('route::'.$this->get('router')->generate('contact')); 
         return $this->redirectToRoute('contact');
     }
 

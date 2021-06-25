@@ -59,23 +59,20 @@
     $(document).ready(function(){
         $(".suppression").click(function(){
             var id = $(this).attr("data-playground-id");
-            var redirection = '{{path('contact') }}';
             var url = '{{path('contact-suppression', { 'id': 0}) }}';
             var url = url.replace("0",id);
             $.ajax({
                 url: url,
                 type: 'delete',
                 success:function(data){
-                    var row = $(this).closest("tr");
-                    row.hide(2000, function(){
-                        this.remove();
-                    });
+                    console.log(data)
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     console.log(textStatus);
                     console.log(errorThrown);
                 }
-                });
+            });
+            $(this).closest("tr").hide();
         });
     });
 </script>

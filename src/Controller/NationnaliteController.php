@@ -55,6 +55,18 @@ class NationnaliteController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $nationnaliteRepository = $em->getRepository(Nationnalite::class);
         $suppressionNatio = $nationnaliteRepository->find($id);
+        //On supprime les agents dans la relation
+        foreach($suppressionNatio->getAgents() as $agent){
+            $suppressionNatio->removeAgent($agent);
+        }
+        //On supprime les agents dans la relation
+        foreach($suppressionNatio->getCibles() as $cible){
+            $suppressionNatio->removeCible($cible);
+        }
+        //On supprime les contacts dans la relation
+        foreach($suppressionNatio->getContacts() as $contact){
+            $suppressionNatio->removeContact($contact);
+        }
         $em->remove($suppressionNatio);
         $em->flush();
 
