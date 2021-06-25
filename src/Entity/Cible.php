@@ -128,7 +128,10 @@ class Cible
         return $this;
     }
 
-    public function getMission(): ?Mission
+    /**
+     * @return Collection|Mission[]
+     */
+    public function getMissions(): Collection
     {
         return $this->mission;
     }
@@ -144,6 +147,7 @@ class Cible
     {
         if (!$this->mission->contains($mission)) {
             $this->mission[] = $mission;
+            $mission->addCible($this);
         }
 
         return $this;
@@ -152,7 +156,16 @@ class Cible
     public function removeMission(Mission $mission): self
     {
         $this->mission->removeElement($mission);
+        $mission->removeCible($this);
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Mission[]
+     */
+    public function getMission(): Collection
+    {
+        return $this->mission;
     }
 }

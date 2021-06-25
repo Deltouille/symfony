@@ -36,7 +36,7 @@ class CibleType extends AbstractType
             ->add('mission', EntityType::class,
             array('class' => Mission::class,
                   'choice_label' => 'titre',
-                  'multiple' => false,
+                  'multiple' => true,
                   'expanded' => false
                   ))
             ->add('Sauvegarde', SubmitType::class)

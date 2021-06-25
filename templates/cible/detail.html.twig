@@ -16,14 +16,12 @@
     <table id="table" class="table mt-3 table-hover table-borderless row-border">
         <tr><td>Nom de code de la cible : </td><td>{{ detailCible.nomCode }}</td>
         <tr><td>Date de naissance : </td><td>{{ detailCible.DateNaissance|date("Y-m-d") }}</td>
-        <tr><td>Nationnalité : </td><td>{{ detailCible.nationnalite.nomNatio }}</td>
-        <tr><td>Missions de la cible : </td><td>
-        {% if detailCible.mission is null %}
-            Aucune mission
+        {% if detailCible.nationnalite is null %}
+            <tr><td>Nationnalité : </td><td>Aucune nationnalité attribuée</td></tr>
         {% else %}
-            <a href=" {{ path("mission-details", {id: detailMission.id}) }} ">{{ detailMission.titre }}
-        </td>
+            <tr><td>Nationnalité : </td><td>{{ detailCible.nationnalite.nomNatio }}</td>
         {% endif %}
+        <tr><td>Missions de la cible : </td><td>{% for mission in detailCible.missions %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
     </table>
 </div>
         <a href ="{{ path('cible-modification', {id: detailCible.id}) }}" class ="btn btn-sm btn-success" style="float: left;">

@@ -38,7 +38,11 @@
                 <td style="text-align: center;">{{ cible.prenom }}</td>
                 <td style="text-align: center;">{{ cible.nomCode }}</td>
                 <td style="text-align: center;">{{ cible.DateNaissance|date('Y-m-d') }}</td>
-                <td style="text-align: center;">{{ cible.nationnalite.nomNatio }}</td>
+                {% if cible.nationnalite is null %}
+                    <td style="text-align: center;">Aucune nationnalité attribuée</td>
+                {% else %}
+                    <td style="text-align: center;">{{ cible.nationnalite.nomNatio }}</td>
+                {% endif %}
                 <td style="text-align: center;">
                     <button class="suppression" href="{{ path('cible-suppression', {id: cible.id}) }}" style="text-align: center;" data-playground-id="{{ cible.id }}">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
@@ -65,7 +69,7 @@
                 url: url,
                 type: 'delete',
                 success:function(data){
-                    console.log(data)
+                    console.log(data);
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     console.log(textStatus);

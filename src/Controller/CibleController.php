@@ -65,17 +65,17 @@ class CibleController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $cibleRepository = $em->getRepository(Cible::class);
-        $missionRepository = $em->getRepository(Mission::class);
+        //$missionRepository = $em->getRepository(Mission::class);
         $detailCible = $cibleRepository->find($id);
-        $mission = $detailCible->getMission();
-        if($detailCible->getMission() == null)
-        {
-            $detailMission = 'null';
-        } else {
-            $detailMission = $missionRepository->find($mission->getId());
-        }
+        //$mission = $detailCible->getMission();
+        //if($detailCible->getMission() == null)
+        //{
+        //    $detailMission = 'null';
+        //} else {
+        //    $detailMission = $missionRepository->find($mission->getId());
+        //}
         
-        return $this->render('cible/detail.html.twig', ['detailCible' => $detailCible, 'detailMission' => $detailMission]);
+        return $this->render('cible/detail.html.twig', ['detailCible' => $detailCible]);
     }
 
     /**
