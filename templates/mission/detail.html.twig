@@ -36,10 +36,12 @@
             {% else %} Aucune Cible {% endfor %}</td></tr>
     </table>
 </div>
+    {% if is_granted('ROLE_ADMIN') %}
         <a href ="{{ path('mission-modification', {id: detailMission.id}) }}" class ="btn btn-sm btn-success" style="float: left;">
             <i class ="glyphicon glyphicon-edit" >
             Modifier cette mission
             </i>
         </a>
+    {% endif %}
 </html>
 {% endblock %}

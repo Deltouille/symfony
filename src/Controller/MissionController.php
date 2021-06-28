@@ -48,9 +48,11 @@ class MissionController extends AbstractController
 
     /**
      * @Route("/mission-modification/{id}", name="mission-modification")
+     * 
      */
     public function modification(int $id, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         //On récupere l'entityManager
         $em = $this->getDoctrine()->getManager();
         $missionRepository = $em->getRepository(Mission::class);
@@ -92,7 +94,7 @@ class MissionController extends AbstractController
      */
     public function suppression(int $id, Request $request): Response
     {
-        
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $missionRepository = $em->getRepository(Mission::class);
         $suppressionMission = $missionRepository->find($id);
@@ -131,6 +133,7 @@ class MissionController extends AbstractController
      */
     public function ajout(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $mission = new Mission();
         $form = $this->createForm(MissionType::class, $mission);
 

@@ -17,12 +17,19 @@
     </head>
     <body>
 <div class="w3-sidebar w3-bar-block" style="width:10%">
+  {% if is_granted('ROLE_USER') %}
+    <a class="btn btn-primary" href="{{ path('app_logout') }}" style="text-align: center;">
+        Déconnexion
+    </a>
   <a href="{{ path('mission') }}" class="w3-bar-item w3-button">Liste des Missions</a>
-  <a href="{{ path('agent') }}" class="w3-bar-item w3-button">Liste des Agents</a>
-  <a href="{{ path('contact') }}" class="w3-bar-item w3-button">Liste des Contacts</a>
-  <a href="{{ path('cible') }}" class="w3-bar-item w3-button">Liste des Cibles</a>
-  <a href="{{ path('planque') }}" class="w3-bar-item w3-button">Liste des Planques</a>
-  <a href="{{ path('nationnalite') }}" class="w3-bar-item w3-button">Liste des Nationnalitées</a>
+  {% endif %}
+  {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('agent') }}" class="w3-bar-item w3-button">Liste des Agents</a>
+    <a href="{{ path('contact') }}" class="w3-bar-item w3-button">Liste des Contacts</a>
+    <a href="{{ path('cible') }}" class="w3-bar-item w3-button">Liste des Cibles</a>
+    <a href="{{ path('planque') }}" class="w3-bar-item w3-button">Liste des Planques</a>
+    <a href="{{ path('nationnalite') }}" class="w3-bar-item w3-button">Liste des Nationnalitées</a>
+  {% endif %}
 </div>
 
 <div style="margin-left:10%; margin-right: 10%">
