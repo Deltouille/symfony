@@ -43,12 +43,6 @@ class Planque
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $pays;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
     private $ville;
 
     /**
@@ -63,6 +57,11 @@ class Planque
      * @Assert\NotBlank()
      */
     private $missions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="planques")
+     */
+    private $pays;
 
     public function __construct()
     {
@@ -94,18 +93,6 @@ class Planque
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(string $pays): self
-    {
-        $this->pays = $pays;
 
         return $this;
     }
@@ -169,6 +156,18 @@ class Planque
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): self
+    {
+        $this->pays = $pays;
 
         return $this;
     }

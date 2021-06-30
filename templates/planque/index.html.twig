@@ -42,7 +42,7 @@
                 <td style="text-align: center;">{{ planque.adresse }}</td>
                 <td style="text-align: center;">{{ planque.ville }}</td>
                 <td style="text-align: center;">{{ planque.CP }}</td>
-                <td style="text-align: center;">{{ planque.pays }}</td>
+                <td style="text-align: center;">{{ planque.pays.nom }}</td>
                 <td style="text-align: center;">{{ planque.type }}</td>
                 <td style="text-align: center;">
                     <button class="suppression" href="{{ path('planque-suppression', {id: planque.id}) }}" style="text-align: center;" data-playground-id="{{ planque.id }}">

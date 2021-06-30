@@ -18,15 +18,35 @@ use App\Entity\Agent;
 use App\Entity\Cible;
 use App\Entity\Planque;
 use App\Entity\Contact;
+use App\Entity\Pays;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormEvents;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Constraints\NotNull;
+
 class MissionType extends AbstractType
 {
+
+    /**
+     * @param EntityManagerInterface $em
+     *
+     */
+    public function __construct(EntityManagerInterface $em){
+        $this->em = $em;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('titre', TextType::class)
             ->add('description', TextType::class)
             ->add('nomCode', TextType::class)
-            ->add('pays', CountryType::class)
+            ->add('pays', EntityType::class,
+                array('class' => Pays::class,
+                      'choice_label' => 'nom', 
+                      'multiple' => false,
+                      'expanded' => false,
+                      ))
             ->add('Statut', ChoiceType::class, [
                 'choices' => [
                     'En préparation' => 'En préparation',
@@ -64,8 +84,9 @@ class MissionType extends AbstractType
             array('class' => Planque::class,
                   'choice_label' => 'code',
                   'multiple' => true,
+                  'required' => false,
                   'expanded' => false,
-                
+                  'data' => [],
             ))
             ->add('Cible', EntityType::class,
             array('class' => Cible::class,
@@ -74,6 +95,13 @@ class MissionType extends AbstractType
                   'expanded' => false,
             ))
             ->add('Sauvegarde', SubmitType::class)
+            //->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event){
+            //    $form = $event->getData();
+            //    if(!isset($form['Planque'])){
+            //        $form['Planque'] = array(null);
+                    //$event->setData($form);
+            //    }
+            //})
         ;
     }
 

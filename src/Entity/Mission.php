@@ -6,7 +6,9 @@ use App\Repository\MissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass=MissionRepository::class)
@@ -39,12 +41,6 @@ class Mission
     private $nomCode;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $pays;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Agent::class, inversedBy="missions")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Assert\NotBlank()
@@ -68,7 +64,7 @@ class Mission
      * @ORM\ManyToMany(targetEntity=Planque::class, inversedBy="missions")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Assert\Count(min = 1, max = 1)
-     * @Assert\NotBlank()
+     * @Assert\Valid
      */
     private $Planque;
 
@@ -97,6 +93,11 @@ class Mission
      */
     private $Cible;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="missions")
+     */
+    private $pays;
+
     public function __construct()
     {
         $this->Agent = new ArrayCollection();
@@ -104,6 +105,20 @@ class Mission
         $this->Planque = new ArrayCollection();
         $this->Cible = new ArrayCollection();
     }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validationPlanquePays(ExecutionContextInterface $context){
+        foreach($this->getPlanque() as $planque){
+            if($planque->getPays()->getNom() !== $this->getPays()->getNom()){
+                $context->buildViolation('Le pays de la planque n est pas le même que le pays séléctionné')->atPath('Planque')->addViolation();
+            }
+        }
+    }
+
+ 
+
 
     public function getId(): ?int
     {
@@ -142,18 +157,6 @@ class Mission
     public function setNomCode(string $nomCode): self
     {
         $this->nomCode = $nomCode;
-
-        return $this;
-    }
-
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(string $pays): self
-    {
-        $this->pays = $pays;
 
         return $this;
     }
@@ -304,6 +307,18 @@ class Mission
                 $cible->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): self
+    {
+        $this->pays = $pays;
 
         return $this;
     }

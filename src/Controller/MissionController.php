@@ -12,6 +12,9 @@ use App\Entity\Agent;
 use App\Entity\Cible;
 use App\Entity\Planque;
 use App\Entity\Contact;
+use App\Entity\Pays;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 
 
 class MissionController extends AbstractController
@@ -139,8 +142,7 @@ class MissionController extends AbstractController
 
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-
-            if($form->isValid()){
+            if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($mission);
                 $em->flush();
@@ -149,6 +151,10 @@ class MissionController extends AbstractController
             }
         }
         return $this->render("mission/ajout.html.twig", array('mission' => $mission, 'form' => $form->createView()));
+    }
+
+    public function ValiderPays(){
+
     }
 
 }
