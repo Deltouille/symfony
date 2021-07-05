@@ -58,9 +58,15 @@ class Agent
      */
     private $Nationnalite;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Specialite::class, mappedBy="agent")
+     */
+    private $specialites;
+
     public function __construct()
     {
         $this->missions = new ArrayCollection();
+        $this->specialites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +157,33 @@ class Agent
     public function setNationnalite(?Nationnalite $Nationnalite): self
     {
         $this->Nationnalite = $Nationnalite;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specialite[]
+     */
+    public function getSpecialites(): Collection
+    {
+        return $this->specialites;
+    }
+
+    public function addSpecialite(Specialite $specialite): self
+    {
+        if (!$this->specialites->contains($specialite)) {
+            $this->specialites[] = $specialite;
+            $specialite->addAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialite(Specialite $specialite): self
+    {
+        if ($this->specialites->removeElement($specialite)) {
+            $specialite->removeAgent($this);
+        }
 
         return $this;
     }

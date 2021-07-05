@@ -42,6 +42,7 @@ security:
         - { path: ^/contact, roles: ROLE_ADMIN }
         - { path: ^/nationnalite, roles: ROLE_ADMIN }
         - { path: ^/planque, roles: ROLE_ADMIN }
+        - { path: ^/pays, roles: ROLE_ADMIN }
         
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

@@ -68,12 +68,12 @@
         {# Spécialité de la mission #}
         <div class="form-group">
             {# Génération du label #}
-            {{ form_label(form.specialite, "Spécialité de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {{ form_label(form.Specialite, "Spécialité de la mission", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
             {# Affichage des erreurs pour ce champ précis #}
-            {{ form_errors(form.specialite) }}
+            {{ form_errors(form.Specialite) }}
             <div class="col-sm-10">
                 {# Génération de l'input. #}
-                {{ form_widget(form.specialite, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.Specialite, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
         {# Date de début de la mission #}

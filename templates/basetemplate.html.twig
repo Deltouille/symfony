@@ -16,23 +16,26 @@
         {% endblock %}
     </head>
     <body>
-<div class="w3-sidebar w3-bar-block" style="width:10%">
-  {% if is_granted('ROLE_USER') %}
-    <a class="btn btn-primary" href="{{ path('app_logout') }}" style="text-align: center;">
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:10%;">
+    {% if is_granted('ROLE_USER') %}
+    <h3 class="w3-bar-item" style="text-align: center;">Menu</h3>
+  
+    <a class="btn btn-primary w3-bar-item w3-button" href="{{ path('app_logout') }}" style="text-align: center; background-color: blue; color: white; margin-bottom: 1em;">
         Déconnexion
     </a>
-  <a href="{{ path('mission') }}" class="w3-bar-item w3-button">Liste des Missions</a>
+  <a href="{{ path('mission') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Missions</a>
   {% endif %}
   {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('agent') }}" class="w3-bar-item w3-button">Liste des Agents</a>
-    <a href="{{ path('contact') }}" class="w3-bar-item w3-button">Liste des Contacts</a>
-    <a href="{{ path('cible') }}" class="w3-bar-item w3-button">Liste des Cibles</a>
-    <a href="{{ path('planque') }}" class="w3-bar-item w3-button">Liste des Planques</a>
-    <a href="{{ path('nationnalite') }}" class="w3-bar-item w3-button">Liste des Nationnalitées</a>
+    <a href="{{ path('agent') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Agents</a>
+    <a href="{{ path('contact') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Contacts</a>
+    <a href="{{ path('cible') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Cibles</a>
+    <a href="{{ path('planque') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Planques</a>
+    <a href="{{ path('nationnalite') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Nationnalitées</a>
+    <a href="{{ path('pays') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Pays</a>
   {% endif %}
 </div>
 
-<div style="margin-left:10%; margin-right: 10%">
+<div class="w3-container" style="margin-left:10%; margin-right: 10%">
 {% block body %}
 
 {% endblock %}

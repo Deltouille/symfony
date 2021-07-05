@@ -17,6 +17,7 @@
         <tr><td>Code d'identification : </td><td>{{ detailAgent.codeIdentification }}</td>
         <tr><td>Date de naissance : </td><td>{{ detailAgent.DateNaissance|date("Y-m-d") }}</td>
         <tr><td>Nationnalité : </td><td>{{ detailAgent.Nationnalite.nomNatio }}</td>
+        <tr><td>Specialitées : </td><td> {% for specialite in detailAgent.specialites %} {{ specialite.nom }} {% endfor %}</td></tr>
         <tr><td>Missions de l'agent : </td><td>{% for mission in detailAgent.missions %} - <a href="{{ path('mission-details', {id: mission.id}) }}">{{ mission.titre }}</a> <br/>{% else %} Aucune mission {% endfor %}</td></tr>
     </table>
 </div>

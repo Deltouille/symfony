@@ -69,12 +69,6 @@ class Mission
     private $Planque;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $specialite;
-
-    /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank()
      */
@@ -98,6 +92,11 @@ class Mission
      */
     private $pays;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="mission")
+     */
+    private $Specialite;
+
     public function __construct()
     {
         $this->Agent = new ArrayCollection();
@@ -110,15 +109,77 @@ class Mission
      * @Assert\Callback
      */
     public function validationPlanquePays(ExecutionContextInterface $context){
+        $bool = false;
+        $listePlanque = array();
         foreach($this->getPlanque() as $planque){
             if($planque->getPays()->getNom() !== $this->getPays()->getNom()){
-                $context->buildViolation('Le pays de la planque n est pas le même que le pays séléctionné')->atPath('Planque')->addViolation();
+                $bool = true;
+                array_push($listePlanque, $planque->getCode());
             }
+        }
+        if($bool == true){
+            $context->buildViolation('Les planques : '. implode(", ", $listePlanque) .', ne sont pas dans le même pays que celui de la mission')->addViolation();
         }
     }
 
+    /**
+     * @Assert\Callback
+     */
+    public function validationSpecialite(ExecutionContextInterface $context){
+        $bool = false;
+        $listeAgent = array();
+        foreach($this->getAgent() as $agent){
+            foreach($agent->getSpecialites() as $Specialite){
+                if($Specialite->getNom() !== $this->getSpecialite()->getNom()){
+                    $bool = true;
+                    array_push($listeAgent, $agent->getNom());
+                }
+            }
+        }
+        if($bool == true){
+            $context->buildViolation('Les agents : '. implode(", ", $listeAgent) .', n\'ont pas la spécialité requise pour la mission')->addViolation();
+        }
+    }
  
+    /**
+     * @Assert\Callback
+    */
 
+
+    public function validationNationnnaliteAgentCible(ExecutionContextInterface $context){
+        $bool = false;
+        $listeCible = array();
+        $listeAgent = array();
+        foreach($this->getAgent() as $agent){
+            foreach($this->getCible() as $cible){
+                if($agent->getNationnalite() == $cible->getNationnalite()){
+                    $bool = true;
+                    array_push($listeAgent, $agent->getNom());
+                    array_push($listeCible, $cible->getNom());
+                }
+            }
+        }
+        if($bool == true){
+            $context->buildViolation('Les cibles : '. implode(", ", $listeCible) .', ont la même nationnalité que les agents : '. implode(", ", $listeAgent).'.')->addViolation();
+        }
+     }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validationContactPaysMission(ExecutionContextInterface $context){
+        $bool = false;
+        $listeContact = array();
+        foreach($this->getContact() as $contact){
+                if($contact->getNationnalite()->getPays() !== $this->getPays()){
+                    $bool = true;
+                    array_push($listeContact, $contact->getNom());
+                }
+        }
+        if($bool == true){
+            $context->buildViolation('Les contact : ' . implode(", ", $listeContact) .', n\'ont pas la nationnalité du pays ou se déroule la mission')->addViolation();
+        }
+    }
 
     public function getId(): ?int
     {
@@ -245,18 +306,6 @@ class Mission
         return $this;
     }
 
-    public function getSpecialite(): ?string
-    {
-        return $this->specialite;
-    }
-
-    public function setSpecialite(string $specialite): self
-    {
-        $this->specialite = $specialite;
-
-        return $this;
-    }
-
     public function getDateDebut(): ?\DateTimeInterface
     {
         return $this->dateDebut;
@@ -319,6 +368,18 @@ class Mission
     public function setPays(?Pays $pays): self
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getSpecialite(): ?Specialite
+    {
+        return $this->Specialite;
+    }
+
+    public function setSpecialite(?Specialite $Specialite): self
+    {
+        $this->Specialite = $Specialite;
 
         return $this;
     }

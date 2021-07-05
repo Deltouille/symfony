@@ -44,12 +44,12 @@
                     <td style="text-align: center;">{{ cible.nationnalite.nomNatio }}</td>
                 {% endif %}
                 <td style="text-align: center;">
-                    <button class="suppression" href="{{ path('cible-suppression', {id: cible.id}) }}" style="text-align: center;" data-playground-id="{{ cible.id }}">
+                    <a class="suppression btn btn-danger" href="{{ path('cible-suppression', {id: cible.id}) }}" style="text-align: center; margin-bottom: 1em;" data-playground-id="{{ cible.id }}">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Supprimer la cible
-                    </button>
+                    </a>
                     <p>
-                    <a href="{{ path('cible-details', {id: cible.id}) }}" style="text-align: center;">
+                    <a class="btn btn-primary" href="{{ path('cible-details', {id: cible.id}) }}" style="text-align: center;">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Details de la cible
                     </a>

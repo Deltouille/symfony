@@ -19,6 +19,7 @@ use App\Entity\Cible;
 use App\Entity\Planque;
 use App\Entity\Contact;
 use App\Entity\Pays;
+use App\Entity\Specialite;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormEvents;
@@ -54,12 +55,12 @@ class MissionType extends AbstractType
                     'Terminé' => 'Terminé',
                     'Echec'=> 'Echec',]]
                  )
-            ->add('specialite', ChoiceType::class, [
-                'choices' => [
-                    'Surveillance' => 'Surveillance',
-                    'Infiltration' => 'Infiltration',
-                ]
-            ])
+            ->add('Specialite', EntityType::class, array(
+                'class' => Specialite::class,
+                'choice_label' => 'nom',
+                'multiple' => false,
+                'expanded' => false,
+            ))
             ->add('dateDebut', DateType::class, [ 
                 'widget' => 'choice',
                 'format' => 'yyyy-MM-dd'
@@ -84,7 +85,6 @@ class MissionType extends AbstractType
             array('class' => Planque::class,
                   'choice_label' => 'code',
                   'multiple' => true,
-                  'required' => false,
                   'expanded' => false,
                   'data' => [],
             ))
@@ -95,13 +95,6 @@ class MissionType extends AbstractType
                   'expanded' => false,
             ))
             ->add('Sauvegarde', SubmitType::class)
-            //->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event){
-            //    $form = $event->getData();
-            //    if(!isset($form['Planque'])){
-            //        $form['Planque'] = array(null);
-                    //$event->setData($form);
-            //    }
-            //})
         ;
     }
 

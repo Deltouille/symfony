@@ -44,6 +44,11 @@ class Nationnalite
      */
     private $contacts;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Pays::class, cascade={"persist", "remove"})
+     */
+    private $Pays;
+
     public function __construct()
     {
         $this->agents = new ArrayCollection();
@@ -154,6 +159,18 @@ class Nationnalite
                 $contact->setNationnalite(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPays(): ?Pays
+    {
+        return $this->Pays;
+    }
+
+    public function setPays(?Pays $Pays): self
+    {
+        $this->Pays = $Pays;
 
         return $this;
     }

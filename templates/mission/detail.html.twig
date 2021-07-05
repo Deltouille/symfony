@@ -16,8 +16,8 @@
     <table id="table" class="table mt-3 table-hover table-borderless row-border">
         <tr><td>Description de la mission : </td><td>{{ detailMission.description }}</td></tr>
         <tr><td>Nom de code de la mission : </td><td>{{ detailMission.nomCode }}</td></tr>
-        <tr><td>Pays de la mission : </td><td>{{ CountryName(detailMission.pays) }}</td></tr>
-        <tr><td>Spécialité de la mission : </td><td>{{ detailMission.specialite }}</td></tr>
+        <tr><td>Pays de la mission : </td><td>{{ detailMission.pays.nom }}</td></tr>
+        <tr><td>Spécialité de la mission : </td><td>{{ detailMission.specialite.nom }}</td></tr>
         <tr><td>Statut de la mission : </td><td>{{ detailMission.statut }}</td></tr>
         <tr><td>Date de début de la mission : </td><td>{{ detailMission.dateDebut|date('Y-m-d') }}</td></tr>
         <tr><td>Date de fin de la mission : </td><td>{{ detailMission.dateFin|date('Y-m-d') }}</td></tr>

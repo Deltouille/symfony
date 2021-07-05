@@ -44,19 +44,18 @@
                 <td style="text-align: center;">{{ mission.nomCode }}</td>
                 <td style="text-align: center;">{{ mission.pays.nom }}</td>
                 <td style="text-align: center;">{{ mission.statut }}</td>
-                <td style="text-align: center;">{{ mission.specialite }}</td>
+                <td style="text-align: center;">{{ mission.Specialite.nom }}</td>
                 <td style="text-align: center;">{{ mission.dateDebut|date('Y-m-d') }}</td>
                 <td style="text-align: center;">{{ mission.dateFin|date('Y-m-d') }}</td>
                 <td style="text-align: center;">
                     {% if is_granted('ROLE_ADMIN') %}
-                    <button class="suppression" href="{{ path('mission-suppression', {id: mission.id}) }}" style="text-align: center;" data-playground-id="{{ mission.id }}">
+                    <a class="suppression btn btn-danger" href="{{ path('mission-suppression', {id: mission.id}) }}" style="text-align: center; margin-bottom: 1em;" data-playground-id="{{ mission.id }}">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Supprimer la mission
-                    </button>
+                    </a>
                     {% endif %}
                     <p>
-                    <a href="{{ path('mission-details', {id: mission.id}) }}" style="text-align: center;">
-                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                    <a class="btn btn-primary" href="{{ path('mission-details', {id: mission.id}) }}" style="text-align: center;">
                         Details de la mission 
                     </a>
                 </td>
