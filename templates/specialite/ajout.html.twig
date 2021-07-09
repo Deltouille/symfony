@@ -1,0 +1,29 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+        </div>
+        <h1>Ajout d'une specialite</h1>
+        <hr />
+        {{ include('specialite/formulaireSpecialite.html.twig')}}
+        
+        <p>Vous allez ajouter une specialite</p>
+        <a href="{{ path('specialite') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left">Retour à la liste des cibles</i>
+        </a>
+    </div>
+</html>
+
+{% block JS %}
+    {{ parent() }}
+{% endblock %}
+
+{% endblock %}

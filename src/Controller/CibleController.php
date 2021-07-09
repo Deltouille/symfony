@@ -17,10 +17,13 @@ class CibleController extends AbstractController
      */
     public function index(): Response
     {
-        //Affiche la liste des cibles
+        //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
+        //On récupere le repository de la classe Cible
         $cibleRepository = $em->getRepository(Cible::class);
+        //On récupere toutes les cibles présentent dans la base de données
         $listeCible = $cibleRepository->findAll();
+        //On affiche toute les cibles
         return $this->render('cible/index.html.twig', [
             'listeCible'=>$listeCible
         ]);
@@ -31,31 +34,51 @@ class CibleController extends AbstractController
      */
     public function ajout(Request $request): Response
     {
+        //On créer une nouvelle cible
         $cible = new Cible();
+        //On créer un nouveau formulaire qui utiliseras le FormType de Cible
         $form = $this->createForm(CibleType::class, $cible);
+        //On regarde si le formulaire a été envoyé avec une methode post
         if($request->isMethod('POST')){
             $form->handleRequest($request);
+            //On vérifie que le formulaire a bien été envoyé et qu'il est valide
             if($form->isSubmitted() && $form->isValid()){
+                //On récupere l'entity manager
                 $em = $this->getDoctrine()->getManager();
+                //On enregistre la nouvelle cible dans la base de données
                 $em->persist($cible);
                 $em->flush();
+                //On redirige sur la page qui affiche tout les agents
                 return $this->redirectToRoute('cible');
             }
         }
+        //On affiche la page du fomulaire
         return $this->render('cible/ajout.html.twig', ['cible'=> $cible, 'form' => $form->createView()]);
     }
 
     /**
      * @Route("cible-suppression/{id}", name="cible-suppression")
      */
-    public function suppression(int $id): Response
+    public function suppression(int $id)
     {
+        //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
+        //On récupere le repository de la classe Cible
         $cibleRepository = $em->getRepository(Cible::class);
+        //On récupere la cible a supprimé avec l'identifiant dans l'url
         $suppressionCible = $cibleRepository->find($id);
+        //On verifie que la cible existe
+        if($suppressionCible === null){
+            throw new NotFoundHttpException("La cible d'id ".$id." n'existe pas");
+        }
+        foreach($suppressionCible->getMissions() as $mission){
+            $suppressionCible->removeMission($mission);
+        }
+        //On supprime l'agent de la base de données
         $em->remove($suppressionCible);
         $em->flush();
-        return $this->redirectToRoute('cible');
+        //On redirige sur la page qui affiche toutes les cibles
+        //return $this->redirectToRoute('cible');
     }
 
     /**
@@ -63,18 +86,11 @@ class CibleController extends AbstractController
      */
     public function detail(int $id): Response
     {
+        //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
+        //On récupere le repository de la classe Cible
         $cibleRepository = $em->getRepository(Cible::class);
-        //$missionRepository = $em->getRepository(Mission::class);
-        $detailCible = $cibleRepository->find($id);
-        //$mission = $detailCible->getMission();
-        //if($detailCible->getMission() == null)
-        //{
-        //    $detailMission = 'null';
-        //} else {
-        //    $detailMission = $missionRepository->find($mission->getId());
-        //}
-        
+        $detailCible = $cibleRepository->find($id);        
         return $this->render('cible/detail.html.twig', ['detailCible' => $detailCible]);
     }
 
@@ -96,7 +112,6 @@ class CibleController extends AbstractController
             if($form->isSubmitted() && $form->isValid()){
                 $em->persist($modificationCible);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'Agent bien modifiée');
                 return $this->redirectToRoute('cible-details', ['id' => $modificationCible->getId()]);
             }
         }

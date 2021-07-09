@@ -6,6 +6,7 @@ use App\Repository\PlanqueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +67,21 @@ class Planque
     public function __construct()
     {
         $this->missions = new ArrayCollection();
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function verificationMission(ExecutionContextInterface $context){
+        $bool = false;
+        foreach($this->getMissions() as $mission){
+            if($mission->getPays()->getNom() !== $this->getPays()->getNom()){
+                $bool = true;
+            }
+        }
+        if($bool == true){
+            $context->buildViolation('Impossible de changer le pays de la planque car la planque est utilisée dans des missions se passant en : ' . $this->getPays()->getNom())->addViolation();
+        }
     }
 
     public function getId(): ?int

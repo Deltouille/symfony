@@ -17,10 +17,13 @@ class AgentController extends AbstractController
      */
     public function index(): Response
     {
-        //Affiche la liste des agents
+        //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
+        //On récupere le repository de la classe Agent
         $agentRepository = $em->getRepository(Agent::class);
+        //On récupere tout les agents présent dans la base de données
         $listeAgent = $agentRepository->findAll();
+        //On affiche tout les agents
         return $this->render('agent/index.html.twig', [
             'listeAgent'=>$listeAgent
         ]);
@@ -31,19 +34,27 @@ class AgentController extends AbstractController
      */
     public function ajout(Request $request): Response
     {
+        //On empeche que les utilisateurs n'ayant pas le role admin ne puisse acceder a cette page
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
+        //On créer un nouvel agent
         $agent = new Agent();
+        //On créer un nouveau formulaire qui utiliseras le FormType d'Agent
         $form = $this->createForm(AgentType::class, $agent);
+        //On regarde si le formulaire a été envoyé avec une methode post
         if($request->isMethod('POST')){
             $form->handleRequest($request);
+            //On vérifie que le formulaire a bien été envoyé et qu'il est valide
             if($form->isSubmitted() && $form->isValid()){
+                //On récupere l'entity manager
                 $em = $this->getDoctrine()->getManager();
+                //On enregistre le nouvel agent dans la base de données
                 $em->persist($agent);
                 $em->flush();
+                //On redirige sur la page qui affiche tout les agents
                 return $this->redirectToRoute('agent');
             }
         }
+        //On affichhe la page du fomulaire
         return $this->render('agent/ajout.html.twig', ['agent' => $agent, 'form' => $form->createView()]);
     }
 
@@ -52,16 +63,25 @@ class AgentController extends AbstractController
      */
     public function suppression(int $id, Request $request): Response
     {
+        //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
+        //On récupere le repository de la classe Agent
         $agentRepository = $em->getRepository(Agent::class);
+        //On récupere l'agent a supprimé avec l'identifiant dans l'url
         $suppressionAgent = $agentRepository->find($id);
-        //On supprime les agents dans la relation
+        //On verifie que l'agent existe
+        if($suppressionAgent === null){
+            throw new NotFoundHttpException("L'agent d'id ".$id." n'existe pas");
+        }
+        //On enleve toutes les missions lié a l'agent dans l'association "mission_agent" (Obligé de faire comme ça sinon les missions lié a l'agent se supprimes et inversement)
         foreach($suppressionAgent->getMissions() as $mission){
             $suppressionAgent->removeMission($mission);
         }
+        //On supprime l'agent de la base de données
         $em->remove($suppressionAgent);
         $em->flush();
-        return $this->redirectToRoute('agent');
+        //On redirige sur la page qui affiche tout les agents
+        //return $this->redirectToRoute('agent');
     }
 
     /**
@@ -69,10 +89,17 @@ class AgentController extends AbstractController
      */
     public function detail(int $id): Response
     {
+        //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
+        //On récupere le repository de la classe Agent
         $agentRepository = $em->getRepository(Agent::class);
+        //on récupere le details de l'agent avec l'identifiant dans l'url
         $detailAgent = $agentRepository->find($id);
-
+        //On verifie que l'agent existe
+        if($detailAgent === null){
+            throw new NotFoundHttpException("L'agent d'id ".$id." n'existe pas");
+        }
+        //On affiche la page du détails de l'agent 
         return $this->render('agent/detail.html.twig', ['detailAgent' => $detailAgent]);
     }
 
@@ -81,24 +108,31 @@ class AgentController extends AbstractController
      */
     public function modifier(int $id, Request $request): Response
     {
+        //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
+        //On récupere le repository de la classe Agent
         $agentRepository = $em->getRepository(Agent::class);
+        //On récupere l'agent a modifier avec l'identifiant dans l'url
         $modificationAgent = $agentRepository->find($id);
-
+        //On verifie que l'agent existe 
         if($modificationAgent === null){
             throw new NotFoundHttpException("L'agent d'id ".$id." n'existe pas");
         }
+        //On créer un nouveau formulaire qui utiliseras le FormType d'Agent
         $form = $this->createForm(AgentType::class, $modificationAgent);
+        //On regarde si le formulaire a été envoyé avec une methode post
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-
-            if($form->isValid()){
+            //On vérifie que le formulaire a bien été envoyé et qu'il est valide
+            if($form->isSubmitted() && $form->isValid()){
+                //On enregistre la modification agent dans la base de données
                 $em->persist($modificationAgent);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'Agent bien modifiée');
+                //On redirige sur la page qui affiche le detail de l'agent
                 return $this->redirectToRoute('agent-details', ['id' => $modificationAgent->getId()]);
             }
         }
+        //On affichhe la page du fomulaire
         return $this->render('agent/modification.html.twig', array('form' => $form->createView(), 'modificationAgent' => $modificationAgent));
     }
 }

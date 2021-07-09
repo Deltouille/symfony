@@ -6,11 +6,7 @@ use App\Entity\Planque;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -18,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Mission;
 use App\Entity\Pays;
+
 class PlanqueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -25,7 +22,12 @@ class PlanqueType extends AbstractType
         $builder
             ->add('code', TextType::class)
             ->add('adresse', TextType::class)
-            ->add('CP', NumberType::class)
+            ->add('CP', NumberType::class, [
+                'attr' => array(
+                    'min' => 1,
+                    'max' => 5,
+                ),
+            ])
             ->add('pays', EntityType::class,
                 array('class' => Pays::class,
                       'choice_label' => 'nom', 
@@ -37,10 +39,8 @@ class PlanqueType extends AbstractType
             ->add('missions', EntityType::class,
                 array('class' => Mission::class,
                       'choice_label' => 'titre',
-                      'placeholder' => 'Vous pouvez séléctionner une mission ou non',
                       'multiple' => true,
                       'required' => false,
-                      'empty_data ' => [],
                       ))
             ->add('Sauvegarde', SubmitType::class)
         ;

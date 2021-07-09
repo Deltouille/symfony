@@ -41,14 +41,20 @@ class PlanqueController extends AbstractController
     /**
      * @Route("planque-suppression/{id}", name="planque-suppression")
      */
-    public function suppression(int $id): Response
+    public function suppression(int $id)
     {
         $em = $this->getDoctrine()->getManager();
         $planqueRepository = $em->getRepository(Planque::class);
         $suppressionPlanque = $planqueRepository->find($id);
+        if($suppressionPlanque === null){
+            throw new NotFoundHttpException("La planque d'id ".$id." n'existe pas");
+        }
+        foreach($suppressionPlanque->getMissions() as $mission){
+            $suppressionPlanque->removeMission($mission);
+        }
         $em->remove($suppressionPlanque);
         $em->flush();
-        return $this->redirectToRoute('planque');
+        //return $this->redirectToRoute('planque');
 
     }
 
@@ -71,12 +77,15 @@ class PlanqueController extends AbstractController
         return $this->render('planque/ajout.html.twig', ['planque' => $planque, 'form' => $form->createView()]);
     }
 
+    /**
+     * @Route("/planque-modification/{id}", name="planque-modification")
+     */
     public function modifier(int $id, Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
         $planqueRepository = $em->getRepository(Planque::class);
         $modificationPlanque = $planqueRepository->find($id);
-
+        $form = $this->createForm(PlanqueType::class, $modificationPlanque);
         if($modificationPlanque === null){
             throw new NotFoundHttpException("La planque d'id ".$id." n'existe pas");
         }
@@ -86,7 +95,6 @@ class PlanqueController extends AbstractController
             if($form->isSubmitted() && $form->isValid()){
                 $em->persist($modificationPlanque);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'Agent bien modifiée');
                 return $this->redirectToRoute('planque-details', ['id' => $modificationPlanque->getId()]);
             }
         }

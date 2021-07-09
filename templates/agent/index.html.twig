@@ -42,7 +42,7 @@
                 <td style="text-align: center;">{{ agent.Nationnalite.nomNatio }}</td>
                 <td style="text-align: center;">{% for specialite in agent.specialites %} -{{ specialite.nom }} {% endfor %}
                 <td style="text-align: center;">
-                    <a class="suppression btn btn-danger" href="{{ path('agent-suppression', {id: agent.id}) }}" style="text-align: center; margin-bottom: 1em;" data-playground-id="{{ agent.id }}">
+                    <a class="suppression btn btn-danger" style="text-align: center; margin-bottom: 1em;" data-playground-id="{{ agent.id }}">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Supprimer l'agent
                     </a>

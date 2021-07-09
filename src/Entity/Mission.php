@@ -144,8 +144,6 @@ class Mission
     /**
      * @Assert\Callback
     */
-
-
     public function validationNationnnaliteAgentCible(ExecutionContextInterface $context){
         $bool = false;
         $listeCible = array();

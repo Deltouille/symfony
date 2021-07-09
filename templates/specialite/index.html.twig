@@ -1,0 +1,72 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+    </div>
+    <h1>Listes des Specialite
+        <a href ="{{ path('specialite-ajout')}}" class ="btn btn-sm btn-success" style="float: right;">
+            <i class ="glyphicon glyphicon-edit" >
+            Ajouter une Specialite
+            </i>
+        </a>
+    </h1>
+
+    <hr />
+    <table id="table" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Specialite</th>
+                <th style="border-top:0px solid black; padding-left: 9px; text-align: center;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for specialite in listeSpecialite %}
+            <tr>
+                <td style="text-align: center;">{{ specialite.nom }}</td>
+                <td style="text-align: center;">
+                    <a class="suppression btn btn-danger" href="{{ path('specialite-suppression', {id: specialite.id}) }}" style="text-align: center; margin-bottom: 1em;" data-playground-id="{{ specialite.id }}">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Supprimer la Specialite
+                    </a>
+                    <p>
+                    <a class="btn btn-primary" href="{{ path('specialite-details', {id: specialite.id}) }}" style="text-align: center;">
+                        <i class ="glyphicon glyphicon-chevron-left"></i>
+                        Details de la Specialite
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".suppression").click(function(){
+            var id = $(this).attr("data-playground-id");
+            var url = '{{path('specialite-suppression', { 'id': 0}) }}';
+            var url = url.replace("0",id);
+            $.ajax({
+                url: url,
+                type: 'delete',
+                success:function(data){
+                    console.log(data)
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+            $(this).closest("tr").hide();
+        });
+    });
+</script>
+</html>
+{% endblock %}

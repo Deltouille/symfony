@@ -35,12 +35,10 @@ class PaysController extends AbstractController
 
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-
             if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($pays);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'pays bien enregistrée.');
                 return $this->redirectToRoute("pays");
             }
         }
@@ -50,14 +48,24 @@ class PaysController extends AbstractController
     /**
      * @Route("/pays-suppression/{id}", name="pays-suppression")
      */
-    public function supprimer(int $id): Response
+    public function supprimer(int $id)
     {
         $em = $this->getDoctrine()->getManager();
         $paysRepository = $em->getRepository(Pays::class);
         $suppressionPays = $paysRepository->find($id);
+        if($suppressionPays === null){
+            //Erreur 404
+            throw new NotFoundHttpException("Le pays d'id ".$id." n'existe pas");
+        }
+        foreach($suppressionPays->getMissions() as $mission){
+            $suppressionPays->removeMission($mission);
+        }
+        foreach($suppressionPays->getPlanques() as $planque){
+            $suppressionPays->removePlanque($planque);
+        }
         $em->remove($suppressionPays);
         $em->flush();
-        return $this->redirectToRoute('pays');
+        //return $this->redirectToRoute('pays');
     }
 
     /**
@@ -70,17 +78,14 @@ class PaysController extends AbstractController
         $modificationPays = $paysRepository->find($id);
         $form = $this->createForm(PaysType::class, $modificationPays);
         if($modificationPays === null){
-            //Erreur 404
-            throw new NotFoundHttpException("Le contact d'id ".$id." n'existe pas");
+            throw new NotFoundHttpException("Le pays d'id ".$id." n'existe pas");
         }
         if($request->isMethod('POST')){
             $form->handleRequest($request);
-
             if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($modificationPays);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'pays bien modifié.');
                 return $this->redirectToRoute("pays");
             }
         }

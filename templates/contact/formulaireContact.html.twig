@@ -1,8 +1,6 @@
 <div>
 <div class="pull-right">
 </div>
-<h1>Formulaire d'un Contact</h1>
-<hr />
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
         
@@ -35,7 +33,7 @@
         {# Date de Naissance du contact #}
         <div class="form-group">
             {# Génération du label #}
-            {{ form_label(form.DateNaissance, "Date de naissance de l'agent", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {{ form_label(form.DateNaissance, "Date de naissance du contact", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
             {# Affichage des erreurs pour ce champ précis #}
             {{ form_errors(form.DateNaissance) }}
             <div class="col-sm-10">
@@ -46,7 +44,7 @@
         {# Code d'identification du contact #}
         <div class="form-group">
             {# Génération du label #}
-            {{ form_label(form.nomCode, "Prénom de l'agent", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {{ form_label(form.nomCode, "Code d'identification du contact", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
             {# Affichage des erreurs pour ce champ précis #}
             {{ form_errors(form.nomCode) }}
             <div class="col-sm-10">
@@ -57,7 +55,7 @@
         {# Mission du contact #}
         <div class="form-group">
             {# Génération du label #}
-            {{ form_label(form.missions, "Missions disponibles", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
+            {{ form_label(form.missions, "Missions disponibles (Optionnel, laissez vide si aucune mission)", {'label_attr': {'class': 'cal-sm-2 control-label'}}) }}
             {# Affichage des erreurs pour ce champ précis #}
             {{ form_errors(form.missions) }}
             <div class="col-sm-10">

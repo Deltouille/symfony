@@ -6,6 +6,7 @@ use App\Repository\CibleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +62,23 @@ class Cible
     public function __construct()
     {
         $this->mission = new ArrayCollection();
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validationNationnaliteCibleMission(ExecutionContextInterface $context)
+    {
+        $bool = false;
+        if($this->getMissions() !== null)
+        foreach($this->getMissions() as $mission){
+           if($mission->getPays()->getNom() !== $this->getNationnalite()->getPays()->getNom()){
+               $bool = true;
+           }
+        }
+        if($bool == true){
+            $context->buildViolation('Impossible d\' ajouter ou de modifier cette Cible car la nationnalité selectionné est différente de celle du pays de la mission')->addViolation();
+        }
     }
 
     public function getId(): ?int

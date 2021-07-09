@@ -6,6 +6,7 @@ use App\Repository\AgentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +68,27 @@ class Agent
     {
         $this->missions = new ArrayCollection();
         $this->specialites = new ArrayCollection();
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validationNationnaliteAgentMission(ExecutionContextInterface $context)
+    {
+        $bool = false;
+        $listeMission = array();
+        if($this->getMissions() !== null)
+        foreach($this->getMissions() as $mission){
+            foreach($mission->getCible() as $cible){
+                if($this->getNationnalite()->getNomNatio() == $cible->getNationnalite()->getNomNatio()){
+                    $bool = true;
+                    array_push($listeMission, $mission->getTitre());
+                }
+            }
+        }
+        if($bool == true){
+            $context->buildViolation('Impossible d\'ajouter cet agent car les missions selectionnées : '.implode(", ", $listeMission). ' ont une ou plusieurs cibles qui ont la même nationnalité que l\'agent selectionné')->addViolation();
+        }
     }
 
     public function getId(): ?int

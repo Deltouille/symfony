@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PaysRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +23,7 @@ class Pays
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -38,6 +41,23 @@ class Pays
     {
         $this->missions = new ArrayCollection();
         $this->planques = new ArrayCollection();
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validationPaysPlanqueMission(ExecutionContextInterface $context)
+    {
+        $bool = false;
+        if($this->getMissions() !== null)
+        foreach($this->getMissions() as $mission){
+           if($mission->getPays()->getNom() !== $this->getPays()->getNom()){
+               $bool = true;
+           }
+        }
+        if($bool == true){
+            $context->buildViolation('Impossible d\' ajouter ou de modifier cette Planque car elle doit être dans le même pays que la mission selectionné ')->addViolation();
+        }
     }
 
     public function getId(): ?int

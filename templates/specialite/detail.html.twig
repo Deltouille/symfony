@@ -1,0 +1,26 @@
+{% extends "basetemplate.html.twig" %}
+{% block title%}
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div>
+    <div class="pull-right">
+    </div>
+    <h1>Détails de la spécialité : {{ detailSpecialite.nom }}</h1>
+    <hr />
+    <table id="table" class="table mt-3 table-hover table-borderless row-border">
+        <tr><td>Agents ayant cette spécialité : </td><td>{% for agent in detailSpecialite.agent %} - <a href="{{ path('agent-details', {id: agent.id}) }}">{{ agent.nom }} {{ agent.prenom }}</a> <br/>{% else %} Aucun Agents {% endfor %}</td></tr>
+    </table>
+</div>
+        <a href ="{{ path('specialite-modification', {id: detailSpecialite.id}) }}" class ="btn btn-sm btn-success" style="float: left;">
+            <i class ="glyphicon glyphicon-edit" >
+            Modifier cette planque
+            </i>
+        </a>
+</html>
+{% endblock %}

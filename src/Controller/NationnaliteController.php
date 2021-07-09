@@ -32,15 +32,13 @@ class NationnaliteController extends AbstractController
     {
         $nationnalite = new Nationnalite();
         $form = $this->createForm(NationnaliteType::class, $nationnalite);
-
         if($request->isMethod('POST')){
             $form->handleRequest($request);
 
-            if($form->isValid()){
+            if($form->isSubmitted() && $form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($nationnalite);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'nationnalite bien enregistrée.');
                 return $this->redirectToRoute("nationnalite");
             }
         }
@@ -50,11 +48,16 @@ class NationnaliteController extends AbstractController
     /**
      * @Route("/nationnalite-suppression/{id}", name="nationnalite-suppression")
      */
-    public function suppression(int $id, Request $request): Response
+    public function suppression(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $nationnaliteRepository = $em->getRepository(Nationnalite::class);
         $suppressionNatio = $nationnaliteRepository->find($id);
+        
+        if($suppressionNatio === null){
+            //Erreur 404
+            throw new NotFoundHttpException("La nationnalité d'id ".$id." n'existe pas");
+        }
         //On supprime les agents dans la relation
         foreach($suppressionNatio->getAgents() as $agent){
             $suppressionNatio->removeAgent($agent);
@@ -69,8 +72,7 @@ class NationnaliteController extends AbstractController
         }
         $em->remove($suppressionNatio);
         $em->flush();
-
-        return $this->redirectToRoute("nationnalite");
+        //return $this->redirectToRoute("nationnalite");
 
     }
 
@@ -104,7 +106,6 @@ class NationnaliteController extends AbstractController
             if($form->isSubmitted() && $form->isValid()){
                 $em->persist($modificationNationnalite);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'nationnalité bien modifiée');
                 return $this->redirectToRoute('nationnalite-details', ['id' => $modificationNationnalite->getId()]);
             }
         }

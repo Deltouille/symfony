@@ -13,8 +13,7 @@ use App\Entity\Cible;
 use App\Entity\Planque;
 use App\Entity\Contact;
 use App\Entity\Pays;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class MissionController extends AbstractController
@@ -77,12 +76,11 @@ class MissionController extends AbstractController
             $form->handleRequest($request);
 
             //On vérifie que les valeurs entrées sont correctes
-            if($form->isValid()){
+            if($form->isSubmitted() && $form->isValid()){
                 //On modifie les données dans doctrine
                 $em->persist($modificationMission);
                 //On envoie dans la base de données
                 $em->flush();
-                //message de session informant que la modification a bien été effectuée
                 $request->getSession()->getFlashBag()->add('notice', 'Mission bien modifiée');
                 //On retourne sur le détail de la mission modifiée
                 return $this->redirectToRoute('mission-details', ['id' => $modificationMission->getId()]);
@@ -95,14 +93,12 @@ class MissionController extends AbstractController
     /**
      * @Route("/mission-suppression/{id}", name="mission-suppression")
      */
-    public function suppression(int $id, Request $request): Response
+    public function suppression(int $id, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $missionRepository = $em->getRepository(Mission::class);
         $suppressionMission = $missionRepository->find($id);
-       
-
         //On vérifie que la mission existe
         if($suppressionMission === null){
             //Erreur 404
@@ -127,7 +123,7 @@ class MissionController extends AbstractController
         $em->remove($suppressionMission);
         $em->flush();
       
-        return $this->redirectToRoute("mission");
+        //return $this->redirectToRoute("mission");
             
     }
 
@@ -146,16 +142,10 @@ class MissionController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($mission);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'Mission bien enregistrée.');
                 return $this->redirectToRoute("mission");
             }
         }
         return $this->render("mission/ajout.html.twig", array('mission' => $mission, 'form' => $form->createView()));
     }
-
-    public function ValiderPays(){
-
-    }
-
 }
 

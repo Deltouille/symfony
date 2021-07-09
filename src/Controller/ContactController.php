@@ -57,7 +57,6 @@ class ContactController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($modificationContact);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'contact bien modifié.');
                 return $this->redirectToRoute("contact");
             }
         }
@@ -67,14 +66,20 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact-suppression/{id}", name="contact-suppression")
      */
-    public function supprimer(int $id): Response
+    public function supprimer(int $id)
     {
         $em = $this->getDoctrine()->getManager();
         $contactRepository = $em->getRepository(Contact::class);
         $suppressionContact = $contactRepository->find($id);
+        if($suppressionContact === null){
+            throw new NotFoundHttpException("La cible d'id ".$id." n'existe pas");
+        }
+        foreach($suppressionContact->getMissions() as $mission){
+            $suppressionContact->removeMission($mission);
+        }
         $em->remove($suppressionContact);
         $em->flush();
-        return $this->redirectToRoute('contact');
+        //return $this->redirectToRoute('contact');
     }
 
     /**
@@ -92,7 +97,6 @@ class ContactController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($contact);
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'contact bien enregistrée.');
                 return $this->redirectToRoute("contact");
             }
         }

@@ -7,10 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,22 +17,10 @@ use App\Entity\Planque;
 use App\Entity\Contact;
 use App\Entity\Pays;
 use App\Entity\Specialite;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormEvents;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\Constraints\NotNull;
+
 
 class MissionType extends AbstractType
 {
-
-    /**
-     * @param EntityManagerInterface $em
-     *
-     */
-    public function __construct(EntityManagerInterface $em){
-        $this->em = $em;
-    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -71,26 +56,43 @@ class MissionType extends AbstractType
                 ])
             ->add('Agent', EntityType::class,
             array('class' => Agent::class,
-                  'choice_label' => 'codeIdentification',
+                  'choice_label' => function(Agent $agent){
+                      $listeSpecialite = array();
+                      foreach($agent->getSpecialites() as $spe){
+                          if($spe !== null){
+                              array_push($listeSpecialite, $spe->getNom());
+                          }
+                      }
+                      if($listeSpecialite == null){
+                          array_push($listeSpecialite, 'aucune');   
+                      }
+                      return $agent->getCodeIdentification() . ' - Nationnalité : ' . $agent->getNationnalite()->getNomNatio() . ' - Spécialité : ' . implode(",", $listeSpecialite) ;
+                  },
                   'multiple' => true,
                   'expanded' => false,
                   ))
             ->add('contact', EntityType::class,
             array('class' => Contact::class,
-                  'choice_label' => 'nomCode',
+                  'choice_label' => function(Contact $contact){
+                      return $contact->getNomCode() . ' - ' . $contact->getNationnalite()->getNomNatio();
+                  },
                   'multiple' => true,
                   'expanded' => false,
                   ))
             ->add('Planque', EntityType::class,
             array('class' => Planque::class,
-                  'choice_label' => 'code',
+                  'choice_label' => function(Planque $planque){
+                      return $planque->getCode() . ' - ' . $planque->getPays()->getNom();
+                  },
                   'multiple' => true,
                   'expanded' => false,
                   'data' => [],
             ))
             ->add('Cible', EntityType::class,
             array('class' => Cible::class,
-                  'choice_label' => 'nomCode',
+                  'choice_label' => function(Cible $cible){
+                      return $cible->getNomCode() . ' - ' . $cible->getNationnalite()->getNomNatio();
+                  },
                   'multiple' => true,
                   'expanded' => false,
             ))
