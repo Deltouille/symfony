@@ -130,7 +130,10 @@ class Mission
         $listeAgent = array();
         foreach($this->getAgent() as $agent){
             foreach($agent->getSpecialites() as $Specialite){
-                if($Specialite->getNom() !== $this->getSpecialite()->getNom()){
+                if($Specialite->getNom() == $this->getSpecialite()->getNom()){
+                    $bool = false;
+                    break;
+                }else{
                     $bool = true;
                     array_push($listeAgent, $agent->getNom());
                 }
