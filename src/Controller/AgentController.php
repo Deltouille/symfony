@@ -61,7 +61,7 @@ class AgentController extends AbstractController
     /**
      * @Route("/agent-suppression/{id}", name="agent-suppression")
      */
-    public function suppression(int $id, Request $request): Response
+    public function suppression(int $id, Request $request)
     {
         //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
