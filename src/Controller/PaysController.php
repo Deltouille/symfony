@@ -14,7 +14,7 @@ class PaysController extends AbstractController
     /**
      * @Route("/pays", name="pays")
      */
-    public function index(): Response
+    public function index()
     {
        //Affiche la liste des pays
        $em = $this->getDoctrine()->getManager();
@@ -28,7 +28,7 @@ class PaysController extends AbstractController
     /**
      * @Route("/pays-ajout", name="pays-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         $pays = new Pays();
         $form = $this->createForm(PaysType::class, $pays);
@@ -71,7 +71,7 @@ class PaysController extends AbstractController
     /**
      * @Route("/pays-modification/{id}", name="pays-modification")
      */
-    public function modification(int $id, Request $request): Response
+    public function modification(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $paysRepository = $em->getRepository(Pays::class);

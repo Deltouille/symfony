@@ -15,7 +15,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function index(): Response
+    public function index()
     {
         //Affiche la liste des contact
         $em = $this->getDoctrine()->getManager();
@@ -29,7 +29,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact-details/{id}", name="contact-details")
      */
-    public function detail(int $id): Response
+    public function detail(int $id)
     {
         $em = $this->getDoctrine()->getManager();
         $contactRepository = $em->getRepository(Contact::class);
@@ -40,7 +40,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact-modification/{id}", name="contact-modification")
      */
-    public function modifier(int $id, Request $request): Response
+    public function modifier(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $contactRepository = $em->getRepository(Contact::class);
@@ -85,7 +85,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact-ajout", name="contact-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);

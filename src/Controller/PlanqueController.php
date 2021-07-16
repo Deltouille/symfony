@@ -15,7 +15,7 @@ class PlanqueController extends AbstractController
     /**
      * @Route("/planque", name="planque")
      */
-    public function index(): Response
+    public function index()
     {
         //affiche la liste des planques
         $em = $this->getDoctrine()->getManager();
@@ -29,7 +29,7 @@ class PlanqueController extends AbstractController
     /**
      * @Route("/planque-details/{id}", name="planque-details")
      */
-    public function detail(int $id): Response
+    public function detail(int $id)
     {
         $em = $this->getDoctrine()->getManager();
         $planqueRepository = $em->getRepository(Planque::class);
@@ -61,7 +61,7 @@ class PlanqueController extends AbstractController
     /**
      * @Route("planque-ajout", name="planque-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         $planque = new Planque();
         $form = $this->createForm(PlanqueType::class, $planque);
@@ -80,7 +80,7 @@ class PlanqueController extends AbstractController
     /**
      * @Route("/planque-modification/{id}", name="planque-modification")
      */
-    public function modifier(int $id, Request $request): Response
+    public function modifier(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $planqueRepository = $em->getRepository(Planque::class);

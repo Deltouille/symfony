@@ -15,7 +15,7 @@ class CibleController extends AbstractController
     /**
      * @Route("/cible", name="cible")
      */
-    public function index(): Response
+    public function index()
     {
         //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
@@ -32,7 +32,7 @@ class CibleController extends AbstractController
     /**
      * @Route("cible-ajout", name="cible-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         //On créer une nouvelle cible
         $cible = new Cible();
@@ -84,7 +84,7 @@ class CibleController extends AbstractController
     /**
      * @Route("cible-details/{id}", name="cible-details")
      */
-    public function detail(int $id): Response
+    public function detail(int $id)
     {
         //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
@@ -97,7 +97,7 @@ class CibleController extends AbstractController
     /**
      * @Route("cible-modification/{id}", name="cible-modification")
      */
-    public function modifier(int $id, Request $request): Response
+    public function modifier(int $id, Request $request)
     {
         $em = $thhis->getDoctrine()->getManager();
         $cibleRepository = $em->getRepository(Cible::class);

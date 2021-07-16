@@ -14,7 +14,7 @@ class SpecialiteController extends AbstractController
     /**
      * @Route("/specialite", name="specialite")
      */
-    public function index(): Response
+    public function index()
     {
        //Affiche la liste des specialite
        $em = $this->getDoctrine()->getManager();
@@ -28,7 +28,7 @@ class SpecialiteController extends AbstractController
     /**
      * @Route("/specialite-ajout", name="specialite-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         $specialite = new specialite();
         $form = $this->createForm(specialiteType::class, $specialite);
@@ -71,7 +71,7 @@ class SpecialiteController extends AbstractController
     /**
      * @Route("/specialite-modification/{id}", name="specialite-modification")
      */
-    public function modification(int $id, Request $request): Response
+    public function modification(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $specialiteRepository = $em->getRepository(specialite::class);
@@ -95,7 +95,7 @@ class SpecialiteController extends AbstractController
     /**
      * @Route("specialite-details/{id}", name="specialite-details")
      */
-    public function details(int $id): Response
+    public function details(int $id)
     {
         //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();

@@ -21,7 +21,7 @@ class MissionController extends AbstractController
     /**
      * @Route("/mission", name="mission")
      */
-    public function index(): Response
+    public function index()
     {
         //Affiche la liste des missions
         $em = $this->getDoctrine()->getManager();
@@ -35,7 +35,7 @@ class MissionController extends AbstractController
     /**
      * @Route("/mission-details/{id}", name="mission-details")
      */
-    public function detail(int $id): Response
+    public function detail(int $id)
     {
         //Affiche la liste des missions
         $em = $this->getDoctrine()->getManager();
@@ -52,7 +52,7 @@ class MissionController extends AbstractController
      * @Route("/mission-modification/{id}", name="mission-modification")
      * 
      */
-    public function modification(int $id, Request $request): Response
+    public function modification(int $id, Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         //On récupere l'entityManager
@@ -130,7 +130,7 @@ class MissionController extends AbstractController
     /**
      * @Route("mission-ajout", name="mission-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $mission = new Mission();

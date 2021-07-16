@@ -14,7 +14,7 @@ class NationnaliteController extends AbstractController
     /**
      * @Route("/nationnalite", name="nationnalite")
      */
-    public function index(): Response
+    public function index()
     {
         //Affiche la liste des missions
         $em = $this->getDoctrine()->getManager();
@@ -28,7 +28,7 @@ class NationnaliteController extends AbstractController
     /**
      * @Route("/nationnalite-ajout", name="nationnalite-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         $nationnalite = new Nationnalite();
         $form = $this->createForm(NationnaliteType::class, $nationnalite);
@@ -79,7 +79,7 @@ class NationnaliteController extends AbstractController
     /**
      * @Route("/nationnalite-detail/{id}", name="nationnalite-detail")
      */
-    public function details(int $id, Request $request): Response
+    public function details(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $nationnaliteRepository = $em->getRepository(Nationnalite::class);
@@ -91,7 +91,7 @@ class NationnaliteController extends AbstractController
     /**
      * @Route("/nationnalite-modification/{id}", name="nationnalite-modification")
      */
-    public function modification(int $id, Request $request): Response
+    public function modification(int $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $nationnaliteRepository = $em->getRepository(Nationnalite::class);

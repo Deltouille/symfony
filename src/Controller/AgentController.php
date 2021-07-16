@@ -15,7 +15,7 @@ class AgentController extends AbstractController
     /**
      * @Route("/agent", name="agent")
      */
-    public function index(): Response
+    public function index()
     {
         //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
@@ -32,7 +32,7 @@ class AgentController extends AbstractController
     /**
      * @Route("/agent-ajout", name="agent-ajout")
      */
-    public function ajout(Request $request): Response
+    public function ajout(Request $request)
     {
         //On empeche que les utilisateurs n'ayant pas le role admin ne puisse acceder a cette page
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -87,7 +87,7 @@ class AgentController extends AbstractController
     /**
      * @Route("/agent-details/{id}", name="agent-details")
      */
-    public function detail(int $id): Response
+    public function detail(int $id)
     {
         //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
@@ -106,7 +106,7 @@ class AgentController extends AbstractController
     /**
      * @Route("/agent-modification/{id}", name="agent-modification")
      */
-    public function modifier(int $id, Request $request): Response
+    public function modifier(int $id, Request $request)
     {
         //On récupere l'entity manager
         $em = $this->getDoctrine()->getManager();
