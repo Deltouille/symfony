@@ -47,6 +47,7 @@ class AgentController extends AbstractController
             if($form->isSubmitted() && $form->isValid()){
                 //On récupere l'entity manager
                 $em = $this->getDoctrine()->getManager();
+                $agent->setId(null);
                 //On enregistre le nouvel agent dans la base de données
                 $em->persist($agent);
                 $em->flush();
