@@ -47,7 +47,7 @@ class PlanqueController extends AbstractController
         $planqueRepository = $em->getRepository(Planque::class);
         $suppressionPlanque = $planqueRepository->find($id);
         if($suppressionPlanque == null){
-            throw new NotFoundHttpException("La planque d'id ".$id." n'existe pas");
+            return new Response("La planque d'id ".$id." n'existe pas");
         }
         foreach($suppressionPlanque->getMissions() as $mission){
             $suppressionPlanque->removeMission($mission);
@@ -87,7 +87,7 @@ class PlanqueController extends AbstractController
         $modificationPlanque = $planqueRepository->find($id);
         $form = $this->createForm(PlanqueType::class, $modificationPlanque);
         if($modificationPlanque === null){
-            throw new NotFoundHttpException("La planque d'id ".$id." n'existe pas");
+            return new Response("La planque d'id ".$id." n'existe pas");
         }
         if($request->isMethod('POST')){
             $form->handleRequest($request);
