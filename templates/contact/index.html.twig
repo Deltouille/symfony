@@ -40,7 +40,7 @@
                 <td style="text-align: center;">{{ contact.DateNaissance|date('Y-m-d') }}</td>
                 <td style="text-align: center;">{{ contact.nationnalite.nomNatio }}</td>
                 <td style="text-align: center;">
-                    <a class="suppression btn btn-danger" href="{{ path('contact-suppression', {id: contact.id}) }}" style="text-align: center; margin-bottom: 1em;" data-playground-id="{{ contact.id }}">
+                    <a class="suppression btn btn-danger" style="text-align: center; margin-bottom: 1em;" data-playground-id="{{ contact.id }}">
                         <i class ="glyphicon glyphicon-chevron-left"></i>
                         Supprimer le contact
                     </a>
