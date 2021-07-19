@@ -17,13 +17,15 @@
     </head>
     <body>
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:10%;">
+     <div id="cache">
      <h3 class="w3-bar-item" style="text-align: center;">Menu</h3>
         {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-         <a class="btn btn-primary w3-bar-item w3-button" href="{{ path('app_login') }}" style="text-align: center; background-color: blue; color: white; margin-bottom: 1em;">
+         <a id="loginn" class="btn btn-primary w3-bar-item w3-button" href="{{ path('app_login') }}" style="text-align: center; background-color: blue; color: white; margin-bottom: 1em;">
             Connexion
         </a>
          <a href="{{ path('mission') }}" class="w3-bar-item w3-button" style="margin-bottom: 1em;">Liste des Missions</a>
         {% endif %}
+     </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     <h3 class="w3-bar-item" style="text-align: center;">Menu</h3>
     <a class="btn btn-primary w3-bar-item w3-button" href="{{ path('app_logout') }}" style="text-align: center; background-color: blue; color: white; margin-bottom: 1em;">
@@ -51,6 +53,10 @@
         $(document).ready( function () {
             $('#table').DataTable();
         } );
+        
+        $( "#loginn" ).click(function() {
+          $( "#cache" ).hide();
+        });
     </script>
 {% endblock %}
 </div>    
